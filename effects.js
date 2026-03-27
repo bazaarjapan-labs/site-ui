@@ -4391,4 +4391,419 @@ el.addEventListener('mousemove', (e) => {
       });
     }
   },
+
+  // ===== 追加エフェクト v8 =====
+
+  // --- その他 ---
+  {
+    id: 'timeline', trigger: 'auto', sub: 'other',
+    title: 'タイムライン',
+    tags: ['UI部品', 'デザイン'],
+    prompt: '縦線と丸で繋いだタイムラインUIを作って。完了したステップは色が変わるようにして',
+    html: '<div class="fx-timeline"><div class="fx-timeline-item done"><div class="fx-timeline-title">企画</div><div class="fx-timeline-desc">2024年1月</div></div><div class="fx-timeline-item done"><div class="fx-timeline-title">開発</div><div class="fx-timeline-desc">2024年3月</div></div><div class="fx-timeline-item"><div class="fx-timeline-title">リリース</div><div class="fx-timeline-desc">予定</div></div></div>',
+    code: {
+      html: `<div class="timeline">
+  <div class="timeline-item done">
+    <div class="title">企画</div>
+    <div class="desc">2024年1月</div>
+  </div>
+  <div class="timeline-item done">
+    <div class="title">開発</div>
+    <div class="desc">2024年3月</div>
+  </div>
+  <div class="timeline-item">
+    <div class="title">リリース</div>
+    <div class="desc">予定</div>
+  </div>
+</div>`,
+      css: `.timeline {
+  position: relative;
+  padding-left: 24px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 7px; top: 0;
+  width: 2px; height: 100%;
+  background: #ddd;
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 16px;
+  padding-left: 8px;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -21px; top: 4px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #ddd;
+}
+
+.timeline-item.done::before {
+  background: #0071e3;
+  border-color: #0071e3;
+}
+
+.title { font-weight: 600; font-size: 0.85rem; }
+.desc { font-size: 0.75rem; color: #999; }`
+    }
+  },
+  {
+    id: 'snap-scroll', trigger: 'auto', sub: 'other',
+    title: 'スナップスクロール',
+    tags: ['UI部品', 'インタラクション'],
+    prompt: '横スクロールでページごとにピタッと止まるスナップスクロールを作って。カルーセル風に',
+    html: '<div class="fx-snap-demo"><div class="fx-snap-item" style="background:#667eea">Page 1</div><div class="fx-snap-item" style="background:#764ba2">Page 2</div><div class="fx-snap-item" style="background:#e74c3c">Page 3</div></div>',
+    code: {
+      html: `<div class="snap-scroll">
+  <div class="snap-item" style="background:#667eea">Page 1</div>
+  <div class="snap-item" style="background:#764ba2">Page 2</div>
+  <div class="snap-item" style="background:#e74c3c">Page 3</div>
+</div>`,
+      css: `.snap-scroll {
+  width: 300px; height: 150px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  display: flex;
+  border-radius: 8px;
+}
+
+.snap-item {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #fff;
+}`
+    }
+  },
+
+  // --- ホバー ---
+  {
+    id: 'tooltip-left', trigger: 'hover',
+    title: 'ツールチップ（左）',
+    tags: ['UI部品', 'ホバー', 'アニメーション'],
+    prompt: '要素にホバーすると左側にツールチップが出現するエフェクトを作って。矢印付きで',
+    html: '<div class="fx-tooltip-left">ホバー →<div class="tip">左に出るよ</div></div>',
+    code: {
+      html: `<div class="tooltip-left">
+  ホバー
+  <div class="tip">左に出るよ</div>
+</div>`,
+      css: `.tooltip-left {
+  position: relative;
+  display: inline-block;
+  padding: 10px 24px;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: help;
+}
+
+.tip {
+  position: absolute;
+  right: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%) scale(0.8);
+  padding: 6px 12px;
+  background: #333;
+  color: #fff;
+  font-size: 0.78rem;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s;
+}
+
+.tip::after {
+  content: '';
+  position: absolute;
+  left: 100%; top: 50%;
+  transform: translateY(-50%);
+  border: 5px solid transparent;
+  border-left-color: #333;
+}
+
+.tooltip-left:hover .tip {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+}`
+    }
+  },
+  {
+    id: 'gradient-fill-text', trigger: 'hover',
+    title: 'ホバーでグラデ塗りテキスト',
+    tags: ['テキスト', 'ホバー', 'グラデーション'],
+    prompt: 'テキストにホバーすると左からグラデーションで塗りつぶされるエフェクトを作って',
+    html: '<span class="fx-gradient-fill-text" data-text="GRADIENT">GRADIENT</span>',
+    code: {
+      html: '<span class="gradient-fill" data-text="GRADIENT">GRADIENT</span>',
+      css: `.gradient-fill {
+  font-size: 1.8rem;
+  font-weight: 800;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.gradient-fill::before {
+  content: attr(data-text);
+  position: absolute;
+  left: 0; top: 0;
+  width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: width 0.4s ease;
+}
+
+.gradient-fill:hover::before { width: 100%; }`
+    }
+  },
+
+  // --- クリック ---
+  {
+    id: 'modal', trigger: 'click',
+    title: 'モーダル',
+    tags: ['UI部品', 'インタラクション', 'アニメーション'],
+    prompt: 'ボタンクリックでオーバーレイ付きのモーダルがスケールアニメーションで出現するUIを作って。背景クリックやボタンで閉じるように',
+    html: '<button class="fx-fill-btn" id="modal-trigger-btn">モーダルを開く</button><div class="fx-modal-overlay" id="modal-overlay-el"><div class="fx-modal"><div class="fx-modal-title">モーダルタイトル</div><div class="fx-modal-body">これはモーダルの中身です。背景クリックか下のボタンで閉じます。</div><button class="fx-modal-close" id="modal-close-btn">閉じる</button></div></div>',
+    code: {
+      html: `<button id="openBtn">モーダルを開く</button>
+<div class="modal-overlay" id="overlay">
+  <div class="modal">
+    <h3>タイトル</h3>
+    <p>モーダルの中身</p>
+    <button id="closeBtn">閉じる</button>
+  </div>
+</div>`,
+      css: `.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  z-index: 1000;
+}
+
+.modal-overlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 320px;
+  width: 90%;
+  transform: scale(0.9) translateY(20px);
+  transition: transform 0.3s;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.2);
+}
+
+.modal-overlay.is-open .modal {
+  transform: scale(1) translateY(0);
+}`,
+      js: `const overlay = document.getElementById('overlay');
+document.getElementById('openBtn').onclick = () => overlay.classList.add('is-open');
+document.getElementById('closeBtn').onclick = () => overlay.classList.remove('is-open');
+overlay.onclick = (e) => { if (e.target === overlay) overlay.classList.remove('is-open'); };`
+    },
+    init: (el) => {
+      const btn = el.querySelector('#modal-trigger-btn');
+      const overlay = el.querySelector('#modal-overlay-el');
+      const close = el.querySelector('#modal-close-btn');
+      if (!btn || !overlay) return;
+      btn.addEventListener('click', () => overlay.classList.add('is-open'));
+      if (close) close.addEventListener('click', () => overlay.classList.remove('is-open'));
+      overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('is-open'); });
+    }
+  },
+  {
+    id: 'search-expand', trigger: 'click',
+    title: '検索バー展開',
+    tags: ['UI部品', 'インタラクション', 'アニメーション'],
+    prompt: '検索アイコンをクリックすると入力欄がスッと横に広がる検索バー展開エフェクトを作って',
+    html: '<div class="fx-search-expand" id="search-expand-el"><input type="text" placeholder="検索..."><button id="search-expand-btn">🔍</button></div>',
+    code: {
+      html: `<div class="search-expand" id="searchWrap">
+  <input type="text" placeholder="検索...">
+  <button id="searchBtn">🔍</button>
+</div>`,
+      css: `.search-expand {
+  display: flex;
+  align-items: center;
+}
+
+.search-expand input {
+  width: 0; padding: 0;
+  border: none; outline: none;
+  background: #f5f5f5;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.search-expand.is-open input {
+  width: 160px;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+}
+
+.search-expand button {
+  width: 36px; height: 36px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #f5f5f5;
+  cursor: pointer;
+  font-size: 1rem;
+}`,
+      js: `const wrap = document.getElementById('searchWrap');
+document.getElementById('searchBtn').onclick = () => {
+  wrap.classList.toggle('is-open');
+  if (wrap.classList.contains('is-open')) {
+    wrap.querySelector('input').focus();
+  }
+};`
+    },
+    init: (el) => {
+      const wrap = el.querySelector('#search-expand-el');
+      const btn = el.querySelector('#search-expand-btn');
+      if (!wrap || !btn) return;
+      btn.addEventListener('click', () => {
+        wrap.classList.toggle('is-open');
+        if (wrap.classList.contains('is-open')) wrap.querySelector('input').focus();
+      });
+    }
+  },
+  {
+    id: 'drag-list', trigger: 'click',
+    title: 'ドラッグ並べ替え',
+    tags: ['UI部品', 'インタラクション', 'JS'],
+    prompt: 'リストアイテムをドラッグして並べ替えられるソータブルリストを作って',
+    html: '<div class="fx-drag-list" id="drag-list-el"><div class="fx-drag-item" draggable="true"><span class="fx-drag-handle">⠿</span> アイテム 1</div><div class="fx-drag-item" draggable="true"><span class="fx-drag-handle">⠿</span> アイテム 2</div><div class="fx-drag-item" draggable="true"><span class="fx-drag-handle">⠿</span> アイテム 3</div><div class="fx-drag-item" draggable="true"><span class="fx-drag-handle">⠿</span> アイテム 4</div></div>',
+    code: {
+      html: `<div class="drag-list" id="list">
+  <div class="drag-item" draggable="true"><span class="handle">⠿</span> Item 1</div>
+  <div class="drag-item" draggable="true"><span class="handle">⠿</span> Item 2</div>
+  <div class="drag-item" draggable="true"><span class="handle">⠿</span> Item 3</div>
+</div>`,
+      css: `.drag-list { display: flex; flex-direction: column; gap: 6px; }
+
+.drag-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  cursor: grab;
+  transition: box-shadow 0.2s, transform 0.2s;
+  user-select: none;
+}
+
+.drag-item:active { cursor: grabbing; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+.drag-item.is-dragging { opacity: 0.5; }`,
+      js: `const list = document.getElementById('list');
+let dragged = null;
+
+list.querySelectorAll('.drag-item').forEach(item => {
+  item.addEventListener('dragstart', () => { dragged = item; item.classList.add('is-dragging'); });
+  item.addEventListener('dragend', () => { dragged.classList.remove('is-dragging'); dragged = null; });
+  item.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    if (item !== dragged) list.insertBefore(dragged, item);
+  });
+});`
+    },
+    init: (el) => {
+      const list = el.querySelector('#drag-list-el');
+      if (!list) return;
+      let dragged = null;
+      list.querySelectorAll('.fx-drag-item').forEach(item => {
+        item.addEventListener('dragstart', () => { dragged = item; item.classList.add('is-dragging'); });
+        item.addEventListener('dragend', () => { if (dragged) dragged.classList.remove('is-dragging'); dragged = null; });
+        item.addEventListener('dragover', (e) => { e.preventDefault(); if (item !== dragged && dragged) list.insertBefore(dragged, item); });
+      });
+    }
+  },
+  {
+    id: 'num-badge', trigger: 'click',
+    title: 'カウントバッジ',
+    tags: ['UI部品', 'インタラクション', 'アニメーション'],
+    prompt: 'ボタンをクリックするたびに横のバッジの数字が増えてポンと弾むカウンターバッジを作って',
+    html: '<div class="fx-num-badge" id="num-badge-el" style="cursor:pointer">クリック <span class="fx-num-badge-count" id="num-badge-count">0</span></div>',
+    code: {
+      html: `<div class="num-badge" id="badgeWrap">
+  クリック <span class="badge-count" id="count">0</span>
+</div>`,
+      css: `.num-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.badge-count {
+  min-width: 24px; height: 24px;
+  padding: 0 6px;
+  background: #0071e3;
+  color: #fff;
+  border-radius: 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge-count.is-bump { animation: bump 0.3s ease; }
+@keyframes bump { 50% { transform: scale(1.3); } }`,
+      js: `let count = 0;
+document.getElementById('badgeWrap').addEventListener('click', () => {
+  count++;
+  const el = document.getElementById('count');
+  el.textContent = count;
+  el.classList.remove('is-bump');
+  void el.offsetWidth;
+  el.classList.add('is-bump');
+});`
+    },
+    init: (el) => {
+      const wrap = el.querySelector('#num-badge-el');
+      const badge = el.querySelector('#num-badge-count');
+      if (!wrap || !badge) return;
+      let count = 0;
+      wrap.addEventListener('click', () => {
+        count++;
+        badge.textContent = count;
+        badge.classList.remove('is-bump');
+        void badge.offsetWidth;
+        badge.classList.add('is-bump');
+      });
+    }
+  },
 ];
