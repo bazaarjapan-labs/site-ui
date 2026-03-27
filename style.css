@@ -2315,3 +2315,415 @@ body {
 .fx-slide-text-btn:hover .text-hover {
   transform: translateY(0);
 }
+
+/* ===== Additional Effects v4 ===== */
+
+/* Type-Delete-Retype */
+.fx-type-delete {
+  font-family: 'SF Mono', monospace;
+  font-size: 1.5rem;
+  font-weight: 600;
+  border-right: 2px solid var(--text);
+  animation: blink-caret-td 0.7s step-end infinite;
+  white-space: nowrap;
+}
+
+@keyframes blink-caret-td {
+  50% { border-color: transparent; }
+}
+
+/* Button Loading State */
+.fx-loading-btn {
+  padding: 12px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  min-width: 140px;
+  transition: all 0.3s;
+  position: relative;
+}
+
+.fx-loading-btn.is-loading {
+  pointer-events: none;
+  padding-left: 42px;
+  opacity: 0.85;
+}
+
+.fx-loading-btn .btn-spinner {
+  display: none;
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+.fx-loading-btn.is-loading .btn-spinner {
+  display: block;
+}
+
+.fx-loading-btn.is-done {
+  background: #34c759;
+}
+
+/* Image Hover Zoom */
+.fx-img-zoom {
+  width: 200px;
+  height: 100px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.fx-img-zoom-inner {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+  transition: transform 0.5s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.fx-img-zoom:hover .fx-img-zoom-inner {
+  transform: scale(1.15);
+}
+
+/* Star Rating */
+.fx-star-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 4px;
+  font-size: 1.5rem;
+}
+
+.fx-star-rating input {
+  display: none;
+}
+
+.fx-star-rating label {
+  cursor: pointer;
+  color: #ddd;
+  transition: color 0.15s, transform 0.15s;
+}
+
+.fx-star-rating label:hover,
+.fx-star-rating label:hover ~ label,
+.fx-star-rating input:checked ~ label {
+  color: #f5a623;
+}
+
+.fx-star-rating label:hover {
+  transform: scale(1.2);
+}
+
+/* 3D Push Button */
+.fx-push-btn {
+  padding: 12px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #004fa3;
+  transform: translateY(0);
+  transition: all 0.1s;
+}
+
+.fx-push-btn:hover {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #004fa3;
+}
+
+.fx-push-btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 #004fa3;
+}
+
+/* Pendulum Swing */
+.fx-pendulum {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: 700;
+  transform-origin: top center;
+  animation: pendulum 2s ease-in-out infinite;
+}
+
+@keyframes pendulum {
+  0%, 100% { transform: rotate(15deg); }
+  50% { transform: rotate(-15deg); }
+}
+
+/* Text with Background Image Clip */
+.fx-bg-clip-text {
+  font-size: 2.5rem;
+  font-weight: 900;
+  background: linear-gradient(45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: bg-clip-shift 4s ease infinite;
+}
+
+@keyframes bg-clip-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Like Heart Button */
+.fx-like-btn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: transform 0.1s;
+  color: #ccc;
+}
+
+.fx-like-btn.is-liked {
+  color: #ff3b30;
+  animation: like-pop 0.4s ease;
+}
+
+@keyframes like-pop {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.4); }
+  50% { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+
+/* CSS-only Tabs */
+.fx-tabs {
+  width: 100%;
+  max-width: 280px;
+}
+
+.fx-tabs input { display: none; }
+
+.fx-tab-labels {
+  display: flex;
+  border-bottom: 2px solid var(--border);
+}
+
+.fx-tab-labels label {
+  flex: 1;
+  padding: 8px 12px;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--text-sub);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.2s;
+}
+
+.fx-tab-labels label:hover {
+  color: var(--text);
+}
+
+.fx-tabs input:checked + label {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.fx-tab-panels {
+  position: relative;
+  min-height: 48px;
+}
+
+.fx-tab-panel {
+  display: none;
+  padding: 12px 4px;
+  font-size: 0.85rem;
+  animation: tab-fade 0.3s ease;
+}
+
+@keyframes tab-fade {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fx-tabs #tab1:checked ~ .fx-tab-panels .panel-1,
+.fx-tabs #tab2:checked ~ .fx-tab-panels .panel-2,
+.fx-tabs #tab3:checked ~ .fx-tab-panels .panel-3 {
+  display: block;
+}
+
+/* Dropdown Menu */
+.fx-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.fx-dropdown-btn {
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text);
+}
+
+.fx-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 150px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition: all 0.2s;
+  z-index: 10;
+}
+
+.fx-dropdown:hover .fx-dropdown-menu {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.fx-dropdown-item {
+  padding: 8px 14px;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: background 0.15s;
+  color: var(--text);
+}
+
+.fx-dropdown-item:first-child { border-radius: 8px 8px 0 0; }
+.fx-dropdown-item:last-child { border-radius: 0 0 8px 8px; }
+.fx-dropdown-item:hover { background: var(--tag-bg); }
+
+/* Orbit Animation */
+.fx-orbit {
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.fx-orbit-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 16px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+.fx-orbit-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  margin-top: -40px;
+  margin-left: -40px;
+  animation: orbit 2s linear infinite;
+}
+
+.fx-orbit-dot::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  background: #764ba2;
+  border-radius: 50%;
+}
+
+@keyframes orbit {
+  to { transform: rotate(360deg); }
+}
+
+/* Snow Falling */
+.fx-snow {
+  position: relative;
+  width: 100%;
+  height: 80px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: linear-gradient(to bottom, #1a1a2e, #16213e);
+}
+
+.fx-snow .flake {
+  position: absolute;
+  top: -10px;
+  color: #fff;
+  font-size: 0.8rem;
+  opacity: 0.8;
+  animation: snow-fall linear infinite;
+}
+
+@keyframes snow-fall {
+  0% { transform: translateY(0) rotate(0); }
+  100% { transform: translateY(90px) rotate(360deg); }
+}
+
+/* Gradient Moving Vertically */
+.fx-gradient-v {
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(0deg, #ff6b6b, #ffd93d, #6bff6b, #6bb5ff, #ff6b6b);
+  background-size: 100% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-v-move 3s linear infinite;
+}
+
+@keyframes gradient-v-move {
+  to { background-position: 0 300%; }
+}
+
+/* Reflection Text */
+.fx-reflect {
+  font-size: 2rem;
+  font-weight: 800;
+  position: relative;
+  display: inline-block;
+}
+
+.fx-reflect::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 100%;
+  transform: scaleY(-1);
+  background: linear-gradient(to bottom, rgba(var(--text-rgb, 0,0,0), 0.3), transparent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0.3;
+  filter: blur(1px);
+}

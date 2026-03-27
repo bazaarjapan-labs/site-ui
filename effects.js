@@ -2475,4 +2475,608 @@ for (let i = 0; i < 8; i++) {
 }`
     }
   },
+
+  // ===== 追加エフェクト v4 =====
+
+  // --- 文字が動く ---
+  {
+    id: 'pendulum', trigger: 'auto', sub: 'move',
+    title: '振り子スイング',
+    tags: ['テキスト', 'アニメーション'],
+    prompt: 'テキストが振り子のように左右にゆらゆら揺れるアニメーションを作って。上端を軸にして',
+    html: '<span class="fx-pendulum">⏳ Tick Tock</span>',
+    code: {
+      html: '<span class="pendulum">Tick Tock</span>',
+      css: `.pendulum {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: 700;
+  transform-origin: top center;
+  animation: pendulum 2s ease-in-out infinite;
+}
+
+@keyframes pendulum {
+  0%, 100% { transform: rotate(15deg); }
+  50% { transform: rotate(-15deg); }
+}`
+    }
+  },
+  {
+    id: 'letter-space-v', trigger: 'auto', sub: 'move',
+    title: '文字間が広がる（縦グラデ）',
+    tags: ['テキスト', 'アニメーション'],
+    prompt: 'テキストに縦方向に流れるグラデーションをかけて。虹色が上から下に流れ続けるように',
+    html: '<span class="fx-gradient-v">VERTICAL</span>',
+    code: {
+      html: '<span class="gradient-v">VERTICAL</span>',
+      css: `.gradient-v {
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(0deg, #ff6b6b, #ffd93d, #6bff6b, #6bb5ff, #ff6b6b);
+  background-size: 100% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-v 3s linear infinite;
+}
+
+@keyframes gradient-v {
+  to { background-position: 0 300%; }
+}`
+    }
+  },
+
+  // --- 色が変わる ---
+  {
+    id: 'bg-clip-text', trigger: 'auto', sub: 'color',
+    title: 'グラデ流れテキスト（多色）',
+    tags: ['テキスト', 'グラデーション', 'アニメーション'],
+    prompt: '4色のグラデーションがテキストの上を斜めに流れ続けるアニメーションを作って',
+    html: '<span class="fx-bg-clip-text">VIVID</span>',
+    code: {
+      html: '<span class="bg-clip-text">VIVID</span>',
+      css: `.bg-clip-text {
+  font-size: 2.5rem;
+  font-weight: 900;
+  background: linear-gradient(45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: bg-shift 4s ease infinite;
+}
+
+@keyframes bg-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}`
+    }
+  },
+
+  // --- その他の文字系 ---
+  {
+    id: 'type-delete', trigger: 'auto', sub: 'text-other',
+    title: 'タイプ＆デリート',
+    tags: ['テキスト', 'アニメーション', 'JS'],
+    prompt: 'テキストが1文字ずつ打たれて、全部表示されたら1文字ずつ消えて、別の単語をまた打ち始めるタイプライターアニメーションを作って',
+    html: '<span class="fx-type-delete" id="type-delete-el"></span>',
+    code: {
+      html: '<span class="type-delete" id="typeEl"></span>',
+      css: `.type-delete {
+  font-family: monospace;
+  font-size: 1.5rem;
+  font-weight: 600;
+  border-right: 2px solid #333;
+  animation: blink-caret 0.7s step-end infinite;
+}
+
+@keyframes blink-caret {
+  50% { border-color: transparent; }
+}`,
+      js: `const words = ['Developer', 'Designer', 'Creator'];
+const el = document.getElementById('typeEl');
+let wordIdx = 0, charIdx = 0, deleting = false;
+
+function tick() {
+  const word = words[wordIdx];
+  el.textContent = word.substring(0, charIdx);
+
+  if (!deleting) {
+    charIdx++;
+    if (charIdx > word.length) {
+      deleting = true;
+      return setTimeout(tick, 1500);
+    }
+  } else {
+    charIdx--;
+    if (charIdx === 0) {
+      deleting = false;
+      wordIdx = (wordIdx + 1) % words.length;
+    }
+  }
+  setTimeout(tick, deleting ? 50 : 100);
+}
+tick();`
+    },
+    init: (el) => {
+      const span = el.querySelector('#type-delete-el');
+      if (!span) return;
+      const words = ['Developer', 'Designer', 'Creator'];
+      let wordIdx = 0, charIdx = 0, deleting = false;
+      function tick() {
+        const word = words[wordIdx];
+        span.textContent = word.substring(0, charIdx);
+        if (!deleting) {
+          charIdx++;
+          if (charIdx > word.length) { deleting = true; return setTimeout(tick, 1500); }
+        } else {
+          charIdx--;
+          if (charIdx === 0) { deleting = false; wordIdx = (wordIdx + 1) % words.length; }
+        }
+        setTimeout(tick, deleting ? 50 : 100);
+      }
+      tick();
+    }
+  },
+  {
+    id: 'reflect', trigger: 'auto', sub: 'text-other',
+    title: '反射テキスト',
+    tags: ['テキスト', 'デザイン'],
+    prompt: 'テキストの下に鏡に映ったような反射（リフレクション）を付けて。反射は薄くぼかして',
+    html: '<span class="fx-reflect" data-text="REFLECT">REFLECT</span>',
+    code: {
+      html: '<span class="reflect" data-text="REFLECT">REFLECT</span>',
+      css: `.reflect {
+  font-size: 2rem;
+  font-weight: 800;
+  position: relative;
+  display: inline-block;
+}
+
+.reflect::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0; top: 100%;
+  width: 100%;
+  transform: scaleY(-1);
+  background: linear-gradient(to bottom, rgba(0,0,0,0.3), transparent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0.3;
+  filter: blur(1px);
+}`
+    }
+  },
+
+  // --- その他 ---
+  {
+    id: 'orbit', trigger: 'auto', sub: 'other',
+    title: '軌道アニメーション',
+    tags: ['図形', 'アニメーション'],
+    prompt: '中心の丸の周りを小さな丸が周回する軌道アニメーションを作って。惑星の公転のように',
+    html: '<div class="fx-orbit"><div class="fx-orbit-center"></div><div class="fx-orbit-dot"></div></div>',
+    code: {
+      html: `<div class="orbit">
+  <div class="orbit-center"></div>
+  <div class="orbit-dot"></div>
+</div>`,
+      css: `.orbit {
+  position: relative;
+  width: 80px; height: 80px;
+}
+
+.orbit-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px; height: 16px;
+  background: #0071e3;
+  border-radius: 50%;
+}
+
+.orbit-dot {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 80px; height: 80px;
+  margin: -40px 0 0 -40px;
+  animation: orbit 2s linear infinite;
+}
+
+.orbit-dot::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 10px; height: 10px;
+  background: #764ba2;
+  border-radius: 50%;
+}
+
+@keyframes orbit {
+  to { transform: rotate(360deg); }
+}`
+    }
+  },
+  {
+    id: 'snow', trigger: 'auto', sub: 'other',
+    title: '雪が降る',
+    tags: ['装飾', 'アニメーション'],
+    prompt: '画面に雪がふわふわ降ってくるアニメーションを作って。背景装飾として使えるように',
+    html: '<div class="fx-snow" id="snow-el"></div>',
+    code: {
+      html: '<div class="snow-container"></div>',
+      css: `.snow-container {
+  position: relative;
+  width: 100%; height: 80px;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #1a1a2e, #16213e);
+}
+
+.flake {
+  position: absolute;
+  top: -10px;
+  color: #fff;
+  font-size: 0.8rem;
+  opacity: 0.8;
+  animation: snow-fall linear infinite;
+}
+
+@keyframes snow-fall {
+  to { transform: translateY(90px) rotate(360deg); }
+}`,
+      js: `const c = document.querySelector('.snow-container');
+for (let i = 0; i < 15; i++) {
+  const f = document.createElement('span');
+  f.className = 'flake';
+  f.textContent = '❄';
+  f.style.left = Math.random() * 100 + '%';
+  f.style.fontSize = 0.5 + Math.random() * 0.8 + 'rem';
+  f.style.animationDuration = 2 + Math.random() * 4 + 's';
+  f.style.animationDelay = Math.random() * 4 + 's';
+  c.appendChild(f);
+}`
+    },
+    init: (el) => {
+      const c = el.querySelector('#snow-el');
+      if (!c) return;
+      for (let i = 0; i < 15; i++) {
+        const f = document.createElement('span');
+        f.className = 'flake';
+        f.textContent = '❄';
+        f.style.left = Math.random() * 100 + '%';
+        f.style.fontSize = 0.5 + Math.random() * 0.8 + 'rem';
+        f.style.animationDuration = 2 + Math.random() * 4 + 's';
+        f.style.animationDelay = Math.random() * 4 + 's';
+        c.appendChild(f);
+      }
+    }
+  },
+
+  // --- ホバー ---
+  {
+    id: 'img-zoom', trigger: 'hover',
+    title: 'ホバーで画像ズーム',
+    tags: ['カード', 'ホバー', 'アニメーション'],
+    prompt: '画像にホバーするとじわっとズームインするエフェクトを作って。はみ出さないように親要素はoverflow:hiddenで',
+    html: '<div class="fx-img-zoom"><div class="fx-img-zoom-inner">Zoom In</div></div>',
+    code: {
+      html: `<div class="img-zoom">
+  <img src="image.jpg" alt="">
+</div>`,
+      css: `.img-zoom {
+  width: 200px; height: 100px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.img-zoom img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.img-zoom:hover img {
+  transform: scale(1.15);
+}`
+    }
+  },
+  {
+    id: 'push-btn', trigger: 'hover',
+    title: '3D押しボタン',
+    tags: ['ボタン', 'ホバー', '3D'],
+    prompt: 'ボタンの下に影をつけて立体的にして、ホバー/クリックで押し込まれるように沈むエフェクトを作って',
+    html: '<button class="fx-push-btn">Push me</button>',
+    code: {
+      html: '<button class="push-btn">Push me</button>',
+      css: `.push-btn {
+  padding: 12px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: #0071e3;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #004fa3;
+  transition: all 0.1s;
+}
+
+.push-btn:hover {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #004fa3;
+}
+
+.push-btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 #004fa3;
+}`
+    }
+  },
+  {
+    id: 'dropdown', trigger: 'hover',
+    title: 'ドロップダウンメニュー',
+    tags: ['UI部品', 'ホバー', 'アニメーション'],
+    prompt: 'ホバーでふわっと表示されるドロップダウンメニューを作って。CSS transitionで出現するように',
+    html: '<div class="fx-dropdown"><button class="fx-dropdown-btn">メニュー ▾</button><div class="fx-dropdown-menu"><div class="fx-dropdown-item">プロフィール</div><div class="fx-dropdown-item">設定</div><div class="fx-dropdown-item">ログアウト</div></div></div>',
+    code: {
+      html: `<div class="dropdown">
+  <button class="dropdown-btn">メニュー ▾</button>
+  <div class="dropdown-menu">
+    <div class="dropdown-item">プロフィール</div>
+    <div class="dropdown-item">設定</div>
+    <div class="dropdown-item">ログアウト</div>
+  </div>
+</div>`,
+      css: `.dropdown { position: relative; display: inline-block; }
+
+.dropdown-btn {
+  padding: 10px 20px;
+  font-weight: 600;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 150px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition: all 0.2s;
+}
+
+.dropdown:hover .dropdown-menu {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.dropdown-item {
+  padding: 8px 14px;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.dropdown-item:hover { background: #f5f5f5; }`
+    }
+  },
+
+  // --- クリック ---
+  {
+    id: 'loading-btn', trigger: 'click',
+    title: 'ローディングボタン',
+    tags: ['ボタン', 'インタラクション', 'アニメーション'],
+    prompt: 'ボタンをクリックするとスピナーが表示されてローディング中になり、完了したら「Done!」に変わるボタンを作って',
+    html: '<button class="fx-loading-btn" id="loading-btn-el"><span class="btn-spinner"></span><span class="btn-label">送信する</span></button>',
+    code: {
+      html: `<button class="loading-btn" id="btn">
+  <span class="btn-spinner"></span>
+  <span class="btn-label">送信する</span>
+</button>`,
+      css: `.loading-btn {
+  padding: 12px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: #0071e3;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  min-width: 140px;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.loading-btn.is-loading {
+  pointer-events: none;
+  padding-left: 42px;
+  opacity: 0.85;
+}
+
+.btn-spinner {
+  display: none;
+  position: absolute;
+  left: 14px; top: 50%;
+  transform: translateY(-50%);
+  width: 18px; height: 18px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+.loading-btn.is-loading .btn-spinner { display: block; }
+.loading-btn.is-done { background: #34c759; }`,
+      js: `const btn = document.getElementById('btn');
+btn.addEventListener('click', () => {
+  btn.classList.add('is-loading');
+  btn.querySelector('.btn-label').textContent = '送信中...';
+  setTimeout(() => {
+    btn.classList.remove('is-loading');
+    btn.classList.add('is-done');
+    btn.querySelector('.btn-label').textContent = 'Done!';
+    setTimeout(() => {
+      btn.classList.remove('is-done');
+      btn.querySelector('.btn-label').textContent = '送信する';
+    }, 1500);
+  }, 2000);
+});`
+    },
+    init: (el) => {
+      const btn = el.querySelector('#loading-btn-el');
+      if (!btn) return;
+      btn.addEventListener('click', () => {
+        if (btn.classList.contains('is-loading')) return;
+        btn.classList.add('is-loading');
+        btn.querySelector('.btn-label').textContent = '送信中...';
+        setTimeout(() => {
+          btn.classList.remove('is-loading');
+          btn.classList.add('is-done');
+          btn.querySelector('.btn-label').textContent = 'Done!';
+          setTimeout(() => {
+            btn.classList.remove('is-done');
+            btn.querySelector('.btn-label').textContent = '送信する';
+          }, 1500);
+        }, 2000);
+      });
+    }
+  },
+  {
+    id: 'like-btn', trigger: 'click',
+    title: 'いいねボタン',
+    tags: ['ボタン', 'インタラクション', 'アニメーション'],
+    prompt: 'ハートをクリックするとポンと弾んで赤くなるいいねボタンを作って。もう一度押すと解除される',
+    html: '<button class="fx-like-btn" id="like-btn-el">♥</button>',
+    code: {
+      html: '<button class="like-btn">♥</button>',
+      css: `.like-btn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #ccc;
+}
+
+.like-btn.is-liked {
+  color: #ff3b30;
+  animation: like-pop 0.4s ease;
+}
+
+@keyframes like-pop {
+  25% { transform: scale(1.4); }
+  50% { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}`,
+      js: `document.querySelector('.like-btn')
+  .addEventListener('click', function() {
+    this.classList.toggle('is-liked');
+  });`
+    },
+    init: (el) => {
+      const btn = el.querySelector('#like-btn-el');
+      if (btn) btn.addEventListener('click', () => btn.classList.toggle('is-liked'));
+    }
+  },
+  {
+    id: 'star-rating', trigger: 'click',
+    title: '星レーティング',
+    tags: ['UI部品', 'インタラクション'],
+    prompt: 'CSSだけで星をクリックして評価できるスターレーティングUIを作って。クリックした星まで黄色くなるように',
+    html: '<div class="fx-star-rating"><input type="radio" name="fx-star" id="fxs5" value="5"><label for="fxs5">★</label><input type="radio" name="fx-star" id="fxs4" value="4"><label for="fxs4">★</label><input type="radio" name="fx-star" id="fxs3" value="3" checked><label for="fxs3">★</label><input type="radio" name="fx-star" id="fxs2" value="2"><label for="fxs2">★</label><input type="radio" name="fx-star" id="fxs1" value="1"><label for="fxs1">★</label></div>',
+    code: {
+      html: `<div class="star-rating">
+  <input type="radio" name="star" id="s5" value="5"><label for="s5">★</label>
+  <input type="radio" name="star" id="s4" value="4"><label for="s4">★</label>
+  <input type="radio" name="star" id="s3" value="3"><label for="s3">★</label>
+  <input type="radio" name="star" id="s2" value="2"><label for="s2">★</label>
+  <input type="radio" name="star" id="s1" value="1"><label for="s1">★</label>
+</div>`,
+      css: `.star-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 4px;
+  font-size: 1.5rem;
+}
+
+.star-rating input { display: none; }
+
+.star-rating label {
+  cursor: pointer;
+  color: #ddd;
+  transition: color 0.15s, transform 0.15s;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label,
+.star-rating input:checked ~ label {
+  color: #f5a623;
+}
+
+.star-rating label:hover {
+  transform: scale(1.2);
+}`
+    }
+  },
+  {
+    id: 'tabs', trigger: 'click',
+    title: 'タブ切り替え',
+    tags: ['UI部品', 'インタラクション'],
+    prompt: 'CSSだけで切り替えられるタブUIを作って。クリックで内容がフェードインして切り替わるように',
+    html: '<div class="fx-tabs"><input type="radio" name="fx-tab" id="tab1" checked><label for="tab1">Tab 1</label><input type="radio" name="fx-tab" id="tab2"><label for="tab2">Tab 2</label><input type="radio" name="fx-tab" id="tab3"><label for="tab3">Tab 3</label><div class="fx-tab-labels"></div><div class="fx-tab-panels"><div class="fx-tab-panel panel-1">タブ1の内容です。</div><div class="fx-tab-panel panel-2">タブ2の内容です。</div><div class="fx-tab-panel panel-3">タブ3の内容です。</div></div></div>',
+    code: {
+      html: `<div class="tabs">
+  <input type="radio" name="tab" id="t1" checked>
+  <label for="t1">Tab 1</label>
+  <input type="radio" name="tab" id="t2">
+  <label for="t2">Tab 2</label>
+  <input type="radio" name="tab" id="t3">
+  <label for="t3">Tab 3</label>
+  <div class="tab-panels">
+    <div class="panel panel-1">内容1</div>
+    <div class="panel panel-2">内容2</div>
+    <div class="panel panel-3">内容3</div>
+  </div>
+</div>`,
+      css: `.tabs input { display: none; }
+
+.tabs label {
+  padding: 8px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #999;
+  border-bottom: 2px solid transparent;
+}
+
+.tabs input:checked + label {
+  color: #0071e3;
+  border-bottom-color: #0071e3;
+}
+
+.panel { display: none; padding: 12px; }
+
+.tabs #t1:checked ~ .tab-panels .panel-1,
+.tabs #t2:checked ~ .tab-panels .panel-2,
+.tabs #t3:checked ~ .tab-panels .panel-3 {
+  display: block;
+  animation: tab-fade 0.3s ease;
+}
+
+@keyframes tab-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}`
+    }
+  },
 ];
