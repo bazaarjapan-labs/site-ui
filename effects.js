@@ -3461,4 +3461,484 @@ btn.addEventListener('click', () => {
       });
     }
   },
+
+  // ===== 追加エフェクト v6 =====
+
+  // --- 文字が動く ---
+  {
+    id: 'bounce-in', trigger: 'auto', sub: 'move',
+    title: 'バウンスイン',
+    tags: ['テキスト', 'アニメーション'],
+    prompt: 'テキストが上から落ちてきてバウンドして止まるアニメーションを作って。着地時に小さく跳ねるように',
+    html: '<span class="fx-bounce-in">Drop!</span>',
+    code: {
+      html: '<span class="bounce-in">Drop!</span>',
+      css: `.bounce-in {
+  font-size: 2rem;
+  font-weight: 700;
+  animation: bounce-in 2s ease infinite;
+}
+
+@keyframes bounce-in {
+  0% { transform: translateY(-40px); opacity: 0; }
+  20% { transform: translateY(0); opacity: 1; }
+  40% { transform: translateY(-12px); }
+  60% { transform: translateY(0); }
+  75% { transform: translateY(-4px); }
+  85%, 100% { transform: translateY(0); }
+}`
+    }
+  },
+
+  // --- その他の文字系 ---
+  {
+    id: 'morph-text', trigger: 'auto', sub: 'text-other',
+    title: 'モーフィングテキスト',
+    tags: ['テキスト', 'アニメーション', 'JS'],
+    prompt: '2つの単語がぼやけながら入れ替わるモーフィングテキストアニメーションを作って',
+    html: '<span class="fx-blur-in" id="morph-el" style="min-width:100px;display:inline-block;text-align:center">Hello</span>',
+    code: {
+      html: '<span class="morph-text" id="morphEl">Hello</span>',
+      css: `.morph-text {
+  font-size: 2rem;
+  font-weight: 700;
+  display: inline-block;
+  transition: filter 0.4s, opacity 0.4s;
+}`,
+      js: `const words = ['Hello', 'World', 'Morph', 'Text'];
+const el = document.getElementById('morphEl');
+let idx = 0;
+setInterval(() => {
+  el.style.filter = 'blur(8px)';
+  el.style.opacity = '0.3';
+  setTimeout(() => {
+    idx = (idx + 1) % words.length;
+    el.textContent = words[idx];
+    el.style.filter = 'blur(0)';
+    el.style.opacity = '1';
+  }, 400);
+}, 2000);`
+    },
+    init: (el) => {
+      const span = el.querySelector('#morph-el');
+      if (!span) return;
+      const words = ['Hello', 'World', 'Morph', 'Text'];
+      let idx = 0;
+      setInterval(() => {
+        span.style.filter = 'blur(8px)'; span.style.opacity = '0.3';
+        setTimeout(() => { idx = (idx + 1) % words.length; span.textContent = words[idx]; span.style.filter = 'blur(0)'; span.style.opacity = '1'; }, 400);
+      }, 2000);
+    }
+  },
+
+  // --- 枠系 ---
+  {
+    id: 'ken-burns', trigger: 'auto', sub: 'border',
+    title: 'ケンバーンズ（ゆっくりズーム＆パン）',
+    tags: ['背景', 'アニメーション'],
+    prompt: '背景画像がゆっくりズームしながらパンするケンバーンズエフェクトを作って。ヒーローセクションの背景向け',
+    html: '<div class="fx-ken-burns"><div class="fx-ken-burns-inner">Hero Section</div></div>',
+    code: {
+      html: `<div class="ken-burns">
+  <div class="ken-burns-inner">Hero Section</div>
+</div>`,
+      css: `.ken-burns {
+  width: 100%; height: 200px;
+  overflow: hidden; border-radius: 8px;
+}
+
+.ken-burns-inner {
+  width: 100%; height: 100%;
+  background: url('hero.jpg') center/cover;
+  animation: ken-burns 8s ease-in-out infinite alternate;
+}
+
+@keyframes ken-burns {
+  0% { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.2) translate(-3%, -3%); }
+}`
+    }
+  },
+
+  // --- その他 ---
+  {
+    id: 'avatars', trigger: 'auto', sub: 'other',
+    title: '重なるアバター',
+    tags: ['UI部品', 'デザイン'],
+    prompt: '複数のアバターアイコンが少し重なって並ぶスタックアバターUIを作って。ホバーで少し浮くように',
+    html: '<div class="fx-avatars"><div class="fx-avatar fx-avatar-1">A</div><div class="fx-avatar fx-avatar-2">B</div><div class="fx-avatar fx-avatar-3">C</div><div class="fx-avatar fx-avatar-4">D</div><div class="fx-avatar fx-avatar-more">+3</div></div>',
+    code: {
+      html: `<div class="avatars">
+  <div class="avatar" style="background:#667eea">A</div>
+  <div class="avatar" style="background:#764ba2">B</div>
+  <div class="avatar" style="background:#f093fb">C</div>
+  <div class="avatar more">+3</div>
+</div>`,
+      css: `.avatars { display: flex; }
+
+.avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  margin-left: -12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  transition: transform 0.2s;
+}
+
+.avatar:first-child { margin-left: 0; }
+.avatar:hover { transform: translateY(-4px); z-index: 2; }
+.avatar.more { background: #e0e0e0; color: #666; }`
+    }
+  },
+  {
+    id: 'gooey', trigger: 'auto', sub: 'other',
+    title: 'グーイー（ぬるぬる結合）',
+    tags: ['図形', 'アニメーション'],
+    prompt: '複数の丸がくっついたり離れたりするグーイー（粘性）エフェクトを作って。SVGフィルターで結合感を出して',
+    html: '<svg style="position:absolute;width:0;height:0"><filter id="gooey-filter"><feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"/><feColorMatrix in="blur" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="gooey"/></filter></svg><div class="fx-gooey"><div class="fx-gooey-dot"></div><div class="fx-gooey-dot"></div><div class="fx-gooey-dot"></div></div>',
+    code: {
+      html: `<svg style="position:absolute;width:0;height:0">
+  <filter id="gooey">
+    <feGaussianBlur in="SourceGraphic" stdDeviation="6"/>
+    <feColorMatrix values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"/>
+  </filter>
+</svg>
+<div class="gooey">
+  <div class="dot"></div>
+  <div class="dot"></div>
+  <div class="dot"></div>
+</div>`,
+      css: `.gooey {
+  display: flex;
+  filter: url(#gooey);
+}
+
+.dot {
+  width: 20px; height: 20px;
+  background: #0071e3;
+  border-radius: 50%;
+  animation: gooey-move 2s ease-in-out infinite alternate;
+}
+
+.dot:nth-child(2) { animation-delay: 0.3s; }
+.dot:nth-child(3) { animation-delay: 0.6s; }
+
+@keyframes gooey-move {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(16px); }
+}`
+    }
+  },
+  {
+    id: 'matrix', trigger: 'auto', sub: 'other',
+    title: 'マトリックス・レイン',
+    tags: ['装飾', 'アニメーション', 'JS'],
+    prompt: 'マトリックスの緑の文字が上から降ってくるレインエフェクトを作って。ランダムな文字が列ごとに落ちるように',
+    html: '<div class="fx-matrix" id="matrix-el"></div>',
+    code: {
+      html: '<div class="matrix" id="matrixEl"></div>',
+      css: `.matrix {
+  width: 100%; height: 80px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #000;
+  position: relative;
+}
+
+.matrix .col {
+  position: absolute;
+  top: -20px;
+  font-family: monospace;
+  font-size: 0.7rem;
+  color: #0f0;
+  writing-mode: vertical-rl;
+  animation: matrix-fall linear infinite;
+}
+
+@keyframes matrix-fall {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}`,
+      js: `const el = document.getElementById('matrixEl');
+const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+for (let i = 0; i < 20; i++) {
+  const col = document.createElement('span');
+  col.className = 'col';
+  col.style.left = (i * 5) + '%';
+  col.style.animationDuration = 1.5 + Math.random() * 3 + 's';
+  col.style.animationDelay = Math.random() * 3 + 's';
+  col.style.opacity = 0.3 + Math.random() * 0.7;
+  let text = '';
+  for (let j = 0; j < 8; j++) text += chars[Math.floor(Math.random() * chars.length)];
+  col.textContent = text;
+  el.appendChild(col);
+}`
+    },
+    init: (el) => {
+      const container = el.querySelector('#matrix-el');
+      if (!container) return;
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      for (let i = 0; i < 20; i++) {
+        const col = document.createElement('span');
+        col.className = 'col';
+        col.style.left = (i * 5) + '%';
+        col.style.animationDuration = 1.5 + Math.random() * 3 + 's';
+        col.style.animationDelay = Math.random() * 3 + 's';
+        col.style.opacity = 0.3 + Math.random() * 0.7;
+        let text = '';
+        for (let j = 0; j < 8; j++) text += chars[Math.floor(Math.random() * chars.length)];
+        col.textContent = text;
+        container.appendChild(col);
+      }
+    }
+  },
+
+  // --- ホバー ---
+  {
+    id: 'center-underline', trigger: 'hover',
+    title: '中央から広がる下線',
+    tags: ['リンク', 'ホバー', 'アニメーション'],
+    prompt: 'リンクにホバーすると中央から左右に下線が広がるアニメーションを作って',
+    html: '<a class="fx-center-underline" href="#">Center Underline</a>',
+    code: {
+      html: '<a class="center-underline" href="#">Center Underline</a>',
+      css: `.center-underline {
+  font-size: 1.5rem;
+  font-weight: 600;
+  position: relative;
+  text-decoration: none;
+  color: #333;
+}
+
+.center-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0; height: 2px;
+  background: #0071e3;
+  transition: all 0.3s ease;
+}
+
+.center-underline:hover::after {
+  left: 0;
+  width: 100%;
+}`
+    }
+  },
+  {
+    id: 'color-shadow-card', trigger: 'hover',
+    title: 'ホバーでカラーシャドウ',
+    tags: ['カード', 'ホバー', 'アニメーション'],
+    prompt: 'カードにホバーすると色付きの影がふわっと現れて浮くエフェクトを作って。普通のグレーの影じゃなく青紫の色付き影で',
+    html: '<div class="fx-color-shadow-card">Color Shadow</div>',
+    code: {
+      html: '<div class="color-shadow-card">Color Shadow</div>',
+      css: `.color-shadow-card {
+  padding: 24px 32px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.color-shadow-card:hover {
+  transform: translateY(-4px);
+  border-color: transparent;
+  box-shadow: 0 10px 30px rgba(102,126,234,0.35),
+              0 4px 10px rgba(102,126,234,0.2);
+}`
+    }
+  },
+  {
+    id: 'scramble-hover', trigger: 'hover',
+    title: 'ホバーで文字化け',
+    tags: ['テキスト', 'ホバー', 'JS'],
+    prompt: 'テキストにホバーするとランダムな文字にバラけてから元に戻る文字化けエフェクトを作って',
+    html: '<span class="fx-scramble-hover" id="scramble-el">HOVER ME</span>',
+    code: {
+      html: '<span class="scramble" id="scrambleEl">HOVER ME</span>',
+      css: `.scramble {
+  font-family: monospace;
+  font-size: 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+}`,
+      js: `const el = document.getElementById('scrambleEl');
+const original = el.textContent;
+const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%';
+
+el.addEventListener('mouseenter', () => {
+  let iteration = 0;
+  const interval = setInterval(() => {
+    el.textContent = original.split('').map((c, i) => {
+      if (i < iteration) return original[i];
+      return chars[Math.floor(Math.random() * chars.length)];
+    }).join('');
+    if (iteration >= original.length) clearInterval(interval);
+    iteration += 1 / 3;
+  }, 30);
+});`
+    },
+    init: (el) => {
+      const span = el.querySelector('#scramble-el');
+      if (!span) return;
+      const original = 'HOVER ME';
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%';
+      span.addEventListener('mouseenter', () => {
+        let iteration = 0;
+        const interval = setInterval(() => {
+          span.textContent = original.split('').map((c, i) => {
+            if (i < iteration) return original[i];
+            return chars[Math.floor(Math.random() * chars.length)];
+          }).join('');
+          if (iteration >= original.length) clearInterval(interval);
+          iteration += 1 / 3;
+        }, 30);
+      });
+    }
+  },
+
+  // --- クリック ---
+  {
+    id: 'confetti', trigger: 'click',
+    title: '紙吹雪（コンフェティ）',
+    tags: ['装飾', 'インタラクション', 'JS'],
+    prompt: 'ボタンをクリックしたら紙吹雪がパーッと飛び散るコンフェティエフェクトを作って',
+    html: '<button class="fx-confetti-btn" id="confetti-btn">🎉 Celebrate!</button>',
+    code: {
+      html: '<button class="confetti-btn" id="confettiBtn">🎉 Celebrate!</button>',
+      css: `.confetti-btn {
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: #0071e3;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+}
+
+.confetti-piece {
+  position: absolute;
+  width: 8px; height: 8px;
+  border-radius: 2px;
+  pointer-events: none;
+  animation: confetti-fly 1s ease-out forwards;
+}
+
+@keyframes confetti-fly {
+  0% { transform: translate(0, 0) rotate(0); opacity: 1; }
+  100% { opacity: 0; }
+}`,
+      js: `document.getElementById('confettiBtn').addEventListener('click', function(e) {
+  const colors = ['#ff6b6b','#ffd93d','#6bff6b','#6bb5ff','#c96bff','#ff9ff3'];
+  for (let i = 0; i < 20; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.left = '50%';
+    piece.style.top = '50%';
+    const angle = Math.random() * Math.PI * 2;
+    const dist = 40 + Math.random() * 60;
+    const x = Math.cos(angle) * dist;
+    const y = Math.sin(angle) * dist - 30;
+    piece.style.setProperty('--x', x + 'px');
+    piece.style.setProperty('--y', y + 'px');
+    piece.animate([
+      { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
+      { transform: \`translate(\${x}px, \${y}px) rotate(\${Math.random()*720}deg)\`, opacity: 0 }
+    ], { duration: 800 + Math.random() * 400, easing: 'cubic-bezier(0,0.9,0.3,1)' });
+    this.appendChild(piece);
+    setTimeout(() => piece.remove(), 1200);
+  }
+});`
+    },
+    init: (el) => {
+      const btn = el.querySelector('#confetti-btn');
+      if (!btn) return;
+      btn.addEventListener('click', function() {
+        const colors = ['#ff6b6b','#ffd93d','#6bff6b','#6bb5ff','#c96bff','#ff9ff3'];
+        for (let i = 0; i < 20; i++) {
+          const piece = document.createElement('div');
+          piece.className = 'confetti-piece';
+          piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+          piece.style.left = '50%'; piece.style.top = '50%';
+          const angle = Math.random() * Math.PI * 2;
+          const dist = 40 + Math.random() * 60;
+          const x = Math.cos(angle) * dist;
+          const y = Math.sin(angle) * dist - 30;
+          piece.animate([
+            { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
+            { transform: `translate(${x}px,${y}px) rotate(${Math.random()*720}deg)`, opacity: 0 }
+          ], { duration: 800 + Math.random() * 400, easing: 'cubic-bezier(0,0.9,0.3,1)' });
+          this.appendChild(piece);
+          setTimeout(() => piece.remove(), 1200);
+        }
+      });
+    }
+  },
+  {
+    id: 'copy-btn', trigger: 'click',
+    title: 'コピーボタン',
+    tags: ['ボタン', 'インタラクション'],
+    prompt: 'コピーボタンをクリックするとアイコンがチェックマークに変わって「Copied!」と表示されるエフェクトを作って',
+    html: '<button class="fx-copy-btn" id="copy-btn-el"><span class="copy-icon">📋</span> <span class="copy-label">Copy</span></button>',
+    code: {
+      html: `<button class="copy-btn" id="copyBtn">
+  <span class="icon">📋</span> Copy
+</button>`,
+      css: `.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  font-weight: 600;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.copy-btn.is-copied {
+  border-color: #34c759;
+  color: #34c759;
+}`,
+      js: `document.getElementById('copyBtn').addEventListener('click', function() {
+  this.querySelector('.icon').textContent = '✅';
+  this.classList.add('is-copied');
+  this.lastChild.textContent = ' Copied!';
+  setTimeout(() => {
+    this.querySelector('.icon').textContent = '📋';
+    this.classList.remove('is-copied');
+    this.lastChild.textContent = ' Copy';
+  }, 2000);
+});`
+    },
+    init: (el) => {
+      const btn = el.querySelector('#copy-btn-el');
+      if (!btn) return;
+      btn.addEventListener('click', function() {
+        if (this.classList.contains('is-copied')) return;
+        this.querySelector('.copy-icon').textContent = '✅';
+        this.querySelector('.copy-label').textContent = 'Copied!';
+        this.classList.add('is-copied');
+        setTimeout(() => {
+          this.querySelector('.copy-icon').textContent = '📋';
+          this.querySelector('.copy-label').textContent = 'Copy';
+          this.classList.remove('is-copied');
+        }, 2000);
+      });
+    }
+  },
 ];
