@@ -3079,4 +3079,386 @@ btn.addEventListener('click', () => {
 }`
     }
   },
+
+  // ===== 追加エフェクト v5 =====
+
+  // --- 文字が動く ---
+  {
+    id: 'slide-in', trigger: 'auto', sub: 'move',
+    title: 'スライドイン',
+    tags: ['テキスト', 'アニメーション'],
+    prompt: 'テキストが左からスライドしながらフェードインして、右にスライドしながらフェードアウトするアニメーションを作って',
+    html: '<span class="fx-slide-in">→ Slide In ←</span>',
+    code: {
+      html: '<span class="slide-in">Slide In</span>',
+      css: `.slide-in {
+  font-size: 1.5rem;
+  font-weight: 700;
+  animation: slide-in 2s ease-in-out infinite;
+}
+
+@keyframes slide-in {
+  0% { transform: translateX(-40px); opacity: 0; }
+  20%, 80% { transform: translateX(0); opacity: 1; }
+  100% { transform: translateX(40px); opacity: 0; }
+}`
+    }
+  },
+  {
+    id: 'split', trigger: 'auto', sub: 'move',
+    title: 'テキスト分裂',
+    tags: ['テキスト', 'アニメーション'],
+    prompt: '文字が1文字ずつばらけて広がって、また元に戻るアニメーションを作って',
+    html: '<span class="fx-split" id="split-el"></span>',
+    code: {
+      html: '<span class="split-text">SPLIT</span>',
+      css: `.split-text span {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: 700;
+  animation: split 3s ease-in-out infinite;
+}
+
+@keyframes split {
+  0%, 100% { letter-spacing: 0; opacity: 1; transform: translateY(0); }
+  50% { letter-spacing: 8px; opacity: 0.7; transform: translateY(-4px); }
+}`,
+      js: `document.querySelector('.split-text').innerHTML =
+  'SPLIT'.split('').map((c, i) =>
+    \`<span style="animation-delay:\${i * 0.1}s">\${c}</span>\`
+  ).join('');`
+    },
+    init: (el) => {
+      const t = el.querySelector('#split-el');
+      if (t) t.innerHTML = 'SPLIT'.split('').map((c, i) =>
+        `<span style="animation-delay:${i * 0.1}s">${c}</span>`
+      ).join('');
+    }
+  },
+
+  // --- その他の文字系 ---
+  {
+    id: 'long-shadow', trigger: 'auto', sub: 'text-other',
+    title: 'ロングシャドウ',
+    tags: ['テキスト', 'デザイン'],
+    prompt: 'テキストにフラットデザイン風のロングシャドウ（長い影）を付けて。色付き背景の上に白文字で',
+    html: '<div class="fx-long-shadow-area"><span class="fx-long-shadow">LONG</span></div>',
+    code: {
+      html: '<span class="long-shadow">LONG</span>',
+      css: `.long-shadow {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #fff;
+  text-shadow:
+    1px 1px 0 rgba(0,0,0,0.1),
+    2px 2px 0 rgba(0,0,0,0.1),
+    3px 3px 0 rgba(0,0,0,0.1),
+    4px 4px 0 rgba(0,0,0,0.1),
+    5px 5px 0 rgba(0,0,0,0.1),
+    6px 6px 0 rgba(0,0,0,0.1),
+    7px 7px 0 rgba(0,0,0,0.08),
+    8px 8px 0 rgba(0,0,0,0.06),
+    9px 9px 0 rgba(0,0,0,0.04),
+    10px 10px 0 rgba(0,0,0,0.02);
+}`
+    }
+  },
+
+  // --- 枠系 ---
+  {
+    id: 'marching-ants', trigger: 'auto', sub: 'border',
+    title: '行進する点線（マーチングアンツ）',
+    tags: ['枠', 'アニメーション'],
+    prompt: '要素の枠線が点線で動く（マーチングアンツ/行進するアリ）エフェクトを作って。選択領域のように見えるやつ',
+    html: '<div class="fx-marching-ants">Marching Ants</div>',
+    code: {
+      html: '<div class="marching-ants">Marching Ants</div>',
+      css: `.marching-ants {
+  padding: 20px 32px;
+  font-weight: 600;
+  background-image:
+    repeating-linear-gradient(0deg, #0071e3, #0071e3 8px, transparent 8px, transparent 16px),
+    repeating-linear-gradient(90deg, #0071e3, #0071e3 8px, transparent 8px, transparent 16px),
+    repeating-linear-gradient(180deg, #0071e3, #0071e3 8px, transparent 8px, transparent 16px),
+    repeating-linear-gradient(270deg, #0071e3, #0071e3 8px, transparent 8px, transparent 16px);
+  background-size: 2px 100%, 100% 2px, 2px 100%, 100% 2px;
+  background-position: 0 0, 0 0, 100% 0, 0 100%;
+  background-repeat: no-repeat;
+  animation: march 1s linear infinite;
+}
+
+@keyframes march {
+  to { background-position: 0 -16px, -16px 0, 100% 16px, 16px 100%; }
+}`
+    }
+  },
+  {
+    id: 'stripes', trigger: 'auto', sub: 'border',
+    title: '動くストライプ背景',
+    tags: ['背景', 'アニメーション'],
+    prompt: '斜めストライプの背景がスクロールし続けるアニメーションを作って。工事中バリケードのような感じで',
+    html: '<div class="fx-stripes">LOADING...</div>',
+    code: {
+      html: '<div class="stripes">LOADING...</div>',
+      css: `.stripes {
+  padding: 24px;
+  border-radius: 8px;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  background: repeating-linear-gradient(
+    45deg,
+    #3498db, #3498db 10px,
+    #2980b9 10px, #2980b9 20px
+  );
+  background-size: 28px 28px;
+  animation: stripes 1s linear infinite;
+}
+
+@keyframes stripes {
+  to { background-position: 28px 0; }
+}`
+    }
+  },
+
+  // --- その他 ---
+  {
+    id: 'svg-draw', trigger: 'auto', sub: 'other',
+    title: 'SVGパス描画',
+    tags: ['装飾', 'アニメーション'],
+    prompt: 'SVGの線が一筆書きのように描かれていくアニメーションを作って。stroke-dasharrayとstroke-dashoffsetで',
+    html: '<div class="fx-svg-draw"><svg viewBox="0 0 120 60"><path d="M10,50 Q35,5 60,30 T110,10" stroke-linecap="round"/></svg></div>',
+    code: {
+      html: `<svg class="svg-draw" viewBox="0 0 120 60">
+  <path d="M10,50 Q35,5 60,30 T110,10"/>
+</svg>`,
+      css: `.svg-draw path {
+  fill: none;
+  stroke: #0071e3;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+  animation: draw 3s ease-in-out infinite;
+}
+
+@keyframes draw {
+  0% { stroke-dashoffset: 300; }
+  40%, 60% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -300; }
+}`
+    }
+  },
+  {
+    id: 'stepper', trigger: 'auto', sub: 'other',
+    title: 'ステッパー（進捗ステップ）',
+    tags: ['UI部品', 'デザイン'],
+    prompt: '手順の進捗を表す丸と線のステッパーUIを作って。完了したステップは色が変わるように',
+    html: '<div class="fx-stepper"><div class="fx-step done"><span class="fx-step-circle">✓</span></div><div class="fx-step done"><div class="fx-step-line"></div><span class="fx-step-circle">✓</span></div><div class="fx-step active"><div class="fx-step-line"></div><span class="fx-step-circle">3</span></div><div class="fx-step"><div class="fx-step-line"></div><span class="fx-step-circle">4</span></div></div>',
+    code: {
+      html: `<div class="stepper">
+  <div class="step done"><span class="circle">✓</span></div>
+  <div class="step done"><div class="line"></div><span class="circle">✓</span></div>
+  <div class="step active"><div class="line"></div><span class="circle">3</span></div>
+  <div class="step"><div class="line"></div><span class="circle">4</span></div>
+</div>`,
+      css: `.stepper { display: flex; align-items: center; }
+.step { display: flex; align-items: center; }
+
+.circle {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border: 2px solid #ddd;
+  color: #999;
+}
+
+.step.done .circle {
+  background: #0071e3;
+  border-color: #0071e3;
+  color: #fff;
+}
+
+.step.active .circle {
+  border-color: #0071e3;
+  color: #0071e3;
+  box-shadow: 0 0 0 3px rgba(0,113,227,0.15);
+}
+
+.line {
+  width: 32px; height: 2px;
+  background: #ddd;
+}
+
+.step.done .line { background: #0071e3; }`
+    }
+  },
+  {
+    id: 'radial-pulse', trigger: 'auto', sub: 'other',
+    title: '電波パルス',
+    tags: ['図形', 'アニメーション'],
+    prompt: '丸い点から電波のように円が広がっていくパルスアニメーションを作って。WiFiの電波みたいに',
+    html: '<div class="fx-radial-pulse"></div>',
+    code: {
+      html: '<div class="radial-pulse"></div>',
+      css: `.radial-pulse {
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  background: #0071e3;
+  position: relative;
+}
+
+.radial-pulse::before, .radial-pulse::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid #0071e3;
+  animation: radial 2s ease-out infinite;
+}
+
+.radial-pulse::after { animation-delay: 1s; }
+
+@keyframes radial {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(2.5); opacity: 0; }
+}`
+    }
+  },
+  {
+    id: 'seamless-marquee', trigger: 'auto', sub: 'other',
+    title: '無限ループマーキー',
+    tags: ['テキスト', 'アニメーション'],
+    prompt: 'テキストが途切れなくスムーズに左にスクロールし続ける無限ループマーキーを作って。同じテキストを2つ並べて繋ぎ目をなくす方法で',
+    html: '<div class="fx-seamless-marquee"><div class="fx-seamless-track"><span>React · Vue · Angular · Svelte · Next.js · Nuxt · Astro ·&nbsp;</span><span>React · Vue · Angular · Svelte · Next.js · Nuxt · Astro ·&nbsp;</span></div></div>',
+    code: {
+      html: `<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>React · Vue · Angular · Svelte ·&nbsp;</span>
+    <span>React · Vue · Angular · Svelte ·&nbsp;</span>
+  </div>
+</div>`,
+      css: `.marquee-wrap {
+  width: 100%;
+  overflow: hidden;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: seamless-scroll 10s linear infinite;
+}
+
+.marquee-track span {
+  flex-shrink: 0;
+  padding: 0 24px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+@keyframes seamless-scroll {
+  to { transform: translateX(-50%); }
+}`
+    }
+  },
+
+  // --- ホバー ---
+  {
+    id: 'icon-btn', trigger: 'hover',
+    title: 'ホバーで矢印が出るボタン',
+    tags: ['ボタン', 'ホバー', 'アニメーション'],
+    prompt: 'ボタンにホバーすると右に矢印→がスライドして現れるエフェクトを作って',
+    html: '<button class="fx-icon-btn">詳しく見る<span class="btn-arrow"> →</span></button>',
+    code: {
+      html: `<button class="icon-btn">
+  詳しく見る<span class="btn-arrow"> →</span>
+</button>`,
+      css: `.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: #0071e3;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: gap 0.3s;
+}
+
+.btn-arrow {
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-width 0.3s, opacity 0.3s;
+}
+
+.icon-btn:hover { gap: 8px; }
+
+.icon-btn:hover .btn-arrow {
+  max-width: 20px;
+  opacity: 1;
+}`
+    }
+  },
+
+  // --- クリック ---
+  {
+    id: 'toast-demo', trigger: 'click',
+    title: 'トースト通知',
+    tags: ['UI部品', 'インタラクション', 'アニメーション'],
+    prompt: 'ボタンを押すと画面下部からトースト通知がスッと現れて、数秒後に消えるエフェクトを作って',
+    html: '<button class="fx-fill-btn" id="toast-trigger-btn">通知を出す</button>',
+    code: {
+      html: '<button id="toastBtn">通知を出す</button>',
+      css: `.toast-msg {
+  position: fixed;
+  bottom: 24px; left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  padding: 12px 24px;
+  background: #333;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.toast-msg.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}`,
+      js: `document.getElementById('toastBtn').addEventListener('click', () => {
+  const t = document.createElement('div');
+  t.className = 'toast-msg';
+  t.textContent = '保存しました！';
+  document.body.appendChild(t);
+  requestAnimationFrame(() => t.classList.add('show'));
+  setTimeout(() => {
+    t.classList.remove('show');
+    setTimeout(() => t.remove(), 300);
+  }, 2000);
+});`
+    },
+    init: (el) => {
+      const btn = el.querySelector('#toast-trigger-btn');
+      if (!btn) return;
+      btn.addEventListener('click', () => {
+        const t = document.createElement('div');
+        t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);padding:12px 24px;background:#333;color:#fff;border-radius:8px;font-size:0.85rem;opacity:0;transition:all 0.3s;z-index:9999';
+        t.textContent = '保存しました！';
+        document.body.appendChild(t);
+        requestAnimationFrame(() => { t.style.transform = 'translateX(-50%) translateY(0)'; t.style.opacity = '1'; });
+        setTimeout(() => { t.style.transform = 'translateX(-50%) translateY(80px)'; t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, 2000);
+      });
+    }
+  },
 ];

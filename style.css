@@ -2727,3 +2727,281 @@ body {
   opacity: 0.3;
   filter: blur(1px);
 }
+
+/* ===== Additional Effects v5 ===== */
+
+/* Marching Ants (dashed border animation) */
+.fx-marching-ants {
+  padding: 20px 32px;
+  font-weight: 600;
+  background: var(--card-bg);
+  border: 2px dashed var(--accent);
+  border-radius: 8px;
+  background-image: repeating-linear-gradient(0deg, var(--accent), var(--accent) 8px, transparent 8px, transparent 16px),
+                    repeating-linear-gradient(90deg, var(--accent), var(--accent) 8px, transparent 8px, transparent 16px),
+                    repeating-linear-gradient(180deg, var(--accent), var(--accent) 8px, transparent 8px, transparent 16px),
+                    repeating-linear-gradient(270deg, var(--accent), var(--accent) 8px, transparent 8px, transparent 16px);
+  background-size: 2px 100%, 100% 2px, 2px 100%, 100% 2px;
+  background-position: 0 0, 0 0, 100% 0, 0 100%;
+  background-repeat: no-repeat;
+  animation: marching-ants 1s linear infinite;
+  border: none;
+}
+
+@keyframes marching-ants {
+  to { background-position: 0 -16px, -16px 0, 100% 16px, 16px 100%; }
+}
+
+/* Long Shadow Text */
+.fx-long-shadow-area {
+  background: #3498db;
+  padding: 32px;
+  border-radius: 8px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fx-long-shadow {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #fff;
+  text-shadow:
+    1px 1px 0 rgba(0,0,0,0.1),
+    2px 2px 0 rgba(0,0,0,0.1),
+    3px 3px 0 rgba(0,0,0,0.1),
+    4px 4px 0 rgba(0,0,0,0.1),
+    5px 5px 0 rgba(0,0,0,0.1),
+    6px 6px 0 rgba(0,0,0,0.1),
+    7px 7px 0 rgba(0,0,0,0.08),
+    8px 8px 0 rgba(0,0,0,0.06),
+    9px 9px 0 rgba(0,0,0,0.04),
+    10px 10px 0 rgba(0,0,0,0.02);
+}
+
+/* SVG Path Draw */
+.fx-svg-draw {
+  width: 120px;
+  height: 60px;
+}
+
+.fx-svg-draw path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+  animation: svg-draw 3s ease-in-out infinite;
+}
+
+@keyframes svg-draw {
+  0% { stroke-dashoffset: 300; }
+  40%, 60% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -300; }
+}
+
+/* Toast Notification */
+.fx-toast-demo {
+  padding: 12px 20px;
+  background: #333;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  animation: toast-in 0.4s ease;
+}
+
+@keyframes toast-in {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Stepper / Progress Steps */
+.fx-stepper {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.fx-step {
+  display: flex;
+  align-items: center;
+}
+
+.fx-step-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border: 2px solid var(--border);
+  color: var(--text-sub);
+  background: var(--card-bg);
+  transition: all 0.3s;
+}
+
+.fx-step.done .fx-step-circle {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.fx-step.active .fx-step-circle {
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0,113,227,0.15);
+}
+
+.fx-step-line {
+  width: 32px;
+  height: 2px;
+  background: var(--border);
+  transition: background 0.3s;
+}
+
+.fx-step.done + .fx-step .fx-step-line,
+.fx-step.done .fx-step-line {
+  background: var(--accent);
+}
+
+/* Slide In From Side */
+.fx-slide-in {
+  font-size: 1.5rem;
+  font-weight: 700;
+  animation: slide-in-right 2s ease-in-out infinite;
+}
+
+@keyframes slide-in-right {
+  0% { transform: translateX(-40px); opacity: 0; }
+  20%, 80% { transform: translateX(0); opacity: 1; }
+  100% { transform: translateX(40px); opacity: 0; }
+}
+
+/* Moving Stripes Background */
+.fx-stripes {
+  width: 100%;
+  padding: 24px;
+  border-radius: 8px;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  background: repeating-linear-gradient(
+    45deg,
+    #3498db,
+    #3498db 10px,
+    #2980b9 10px,
+    #2980b9 20px
+  );
+  background-size: 28px 28px;
+  animation: stripes-move 1s linear infinite;
+}
+
+@keyframes stripes-move {
+  to { background-position: 28px 0; }
+}
+
+/* Hover Icon Appear Button */
+.fx-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: gap 0.3s;
+}
+
+.fx-icon-btn .btn-arrow {
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-width 0.3s, opacity 0.3s;
+}
+
+.fx-icon-btn:hover {
+  gap: 8px;
+}
+
+.fx-icon-btn:hover .btn-arrow {
+  max-width: 20px;
+  opacity: 1;
+}
+
+/* Infinite Seamless Marquee */
+.fx-seamless-marquee {
+  width: 100%;
+  overflow: hidden;
+}
+
+.fx-seamless-track {
+  display: flex;
+  width: max-content;
+  animation: seamless-scroll 10s linear infinite;
+}
+
+.fx-seamless-track span {
+  flex-shrink: 0;
+  padding: 0 24px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+@keyframes seamless-scroll {
+  to { transform: translateX(-50%); }
+}
+
+/* Radial Pulse */
+.fx-radial-pulse {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--accent);
+  position: relative;
+}
+
+.fx-radial-pulse::before,
+.fx-radial-pulse::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  animation: radial-expand 2s ease-out infinite;
+}
+
+.fx-radial-pulse::after {
+  animation-delay: 1s;
+}
+
+@keyframes radial-expand {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+/* Text Split Apart */
+.fx-split span {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: 700;
+  animation: split-apart 3s ease-in-out infinite;
+}
+
+@keyframes split-apart {
+  0%, 100% { letter-spacing: 0; opacity: 1; transform: translateY(0); }
+  50% { letter-spacing: 8px; opacity: 0.7; transform: translateY(-4px); }
+}
