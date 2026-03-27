@@ -3230,3 +3230,288 @@ body {
   0% { transform: translate(0, 0) rotate(0); opacity: 1; }
   100% { opacity: 0; }
 }
+
+/* ===== Additional Effects v7 ===== */
+
+/* Karaoke Text (color fill per char) */
+.fx-karaoke span {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--border);
+  animation: karaoke-fill 3s linear infinite;
+}
+
+@keyframes karaoke-fill {
+  0%, 10% { color: var(--border); }
+  20%, 100% { color: var(--accent); }
+}
+
+/* Custom Cursor Area */
+.fx-cursor-area {
+  width: 100%;
+  height: 100px;
+  border-radius: 8px;
+  background: var(--bg);
+  border: 1px dashed var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-sub);
+  position: relative;
+  overflow: hidden;
+  cursor: none;
+}
+
+.fx-custom-cursor {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  transition: transform 0.15s ease, width 0.2s, height 0.2s;
+  transform: translate(-50%, -50%);
+}
+
+/* Parallax Scroll Demo */
+.fx-parallax-demo {
+  width: 100%;
+  height: 100px;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.fx-parallax-layer {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-weight: 700;
+  transition: transform 0.1s;
+}
+
+.fx-parallax-back {
+  top: 0;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.3);
+  font-size: 2rem;
+}
+
+.fx-parallax-front {
+  top: 30%;
+  color: #fff;
+  font-size: 1.2rem;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* Rubber Band */
+.fx-rubber {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.fx-rubber.is-animating {
+  animation: rubber-band 0.8s ease;
+}
+
+@keyframes rubber-band {
+  0% { transform: scaleX(1) scaleY(1); }
+  30% { transform: scaleX(1.25) scaleY(0.75); }
+  40% { transform: scaleX(0.75) scaleY(1.25); }
+  50% { transform: scaleX(1.15) scaleY(0.85); }
+  65% { transform: scaleX(0.95) scaleY(1.05); }
+  75% { transform: scaleX(1.05) scaleY(0.95); }
+  100% { transform: scaleX(1) scaleY(1); }
+}
+
+/* Gradient Border on Text */
+.fx-gradient-text-border {
+  font-size: 2rem;
+  font-weight: 900;
+  color: transparent;
+  -webkit-text-stroke: 2px transparent;
+  background: linear-gradient(135deg, #ff6b6b, #ffd93d, #6bff6b, #6bb5ff);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: gradient-text-border 4s ease infinite;
+}
+
+@keyframes gradient-text-border {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Zoom Blur */
+.fx-zoom-blur {
+  font-size: 2rem;
+  font-weight: 700;
+  animation: zoom-blur 3s ease-in-out infinite;
+}
+
+@keyframes zoom-blur {
+  0%, 100% { transform: scale(1); filter: blur(0); opacity: 1; }
+  50% { transform: scale(1.5); filter: blur(3px); opacity: 0.5; }
+}
+
+/* Hover Double Underline */
+.fx-double-underline {
+  font-size: 1.5rem;
+  font-weight: 600;
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.fx-double-underline::before,
+.fx-double-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.fx-double-underline::before { bottom: -2px; }
+.fx-double-underline::after { bottom: -7px; transition-delay: 0.1s; }
+
+.fx-double-underline:hover::before,
+.fx-double-underline:hover::after {
+  width: 100%;
+}
+
+/* Hover Image Overlay Text */
+.fx-img-overlay {
+  position: relative;
+  width: 200px;
+  height: 100px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.fx-img-overlay-bg {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  transition: transform 0.5s;
+}
+
+.fx-img-overlay-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.fx-img-overlay:hover .fx-img-overlay-bg {
+  transform: scale(1.1);
+}
+
+.fx-img-overlay:hover .fx-img-overlay-text {
+  opacity: 1;
+  transform: translateY(0);
+  background: rgba(0,0,0,0.4);
+}
+
+/* Typewriter Multi-line */
+.fx-multiline-type {
+  font-family: 'SF Mono', monospace;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.fx-multiline-type .cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  background: var(--text);
+  vertical-align: text-bottom;
+  animation: blink-caret-td 0.7s step-end infinite;
+}
+
+/* Before/After Comparison Slider */
+.fx-compare {
+  position: relative;
+  width: 240px;
+  height: 80px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: ew-resize;
+}
+
+.fx-compare-before,
+.fx-compare-after {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.fx-compare-before {
+  background: #667eea;
+  color: #fff;
+  clip-path: inset(0 50% 0 0);
+}
+
+.fx-compare-after {
+  background: #e74c3c;
+  color: #fff;
+}
+
+.fx-compare-line {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 3px;
+  height: 100%;
+  background: #fff;
+  transform: translateX(-50%);
+  pointer-events: none;
+  box-shadow: 0 0 6px rgba(0,0,0,0.3);
+}
+
+.fx-compare-line::after {
+  content: '⟺';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}

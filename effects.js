@@ -3941,4 +3941,454 @@ el.addEventListener('mouseenter', () => {
       });
     }
   },
+
+  // ===== 追加エフェクト v7 =====
+
+  // --- 色が変わる ---
+  {
+    id: 'karaoke', trigger: 'auto', sub: 'color',
+    title: 'カラオケテキスト',
+    tags: ['テキスト', 'アニメーション'],
+    prompt: 'テキストが1文字ずつ順番に色が変わっていくカラオケの歌詞のようなアニメーションを作って',
+    html: '<span class="fx-karaoke" id="karaoke-el"></span>',
+    code: {
+      html: '<span class="karaoke">カラオケテキスト</span>',
+      css: `.karaoke span {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ddd;
+  animation: karaoke 3s linear infinite;
+}
+
+@keyframes karaoke {
+  0%, 10% { color: #ddd; }
+  20%, 100% { color: #0071e3; }
+}`,
+      js: `document.querySelector('.karaoke').innerHTML =
+  'カラオケテキスト'.split('').map((c, i) =>
+    \`<span style="animation-delay:\${i * 0.3}s">\${c}</span>\`
+  ).join('');`
+    },
+    init: (el) => {
+      const t = el.querySelector('#karaoke-el');
+      if (t) t.innerHTML = 'カラオケテキスト'.split('').map((c, i) =>
+        `<span style="animation-delay:${i * 0.3}s">${c}</span>`
+      ).join('');
+    }
+  },
+  {
+    id: 'gradient-text-border', trigger: 'auto', sub: 'color',
+    title: 'グラデ流れアウトライン',
+    tags: ['テキスト', 'グラデーション', 'アニメーション'],
+    prompt: '文字の輪郭にグラデーションが流れるアウトラインテキストを作って。中は透明でグラデーションが動き続けるように',
+    html: '<span class="fx-gradient-text-border">OUTLINE</span>',
+    code: {
+      html: '<span class="gradient-outline">OUTLINE</span>',
+      css: `.gradient-outline {
+  font-size: 2rem;
+  font-weight: 900;
+  color: transparent;
+  background: linear-gradient(135deg, #ff6b6b, #ffd93d, #6bff6b, #6bb5ff);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: gradient-outline 4s ease infinite;
+}
+
+@keyframes gradient-outline {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}`
+    }
+  },
+
+  // --- 文字が動く ---
+  {
+    id: 'zoom-blur', trigger: 'auto', sub: 'move',
+    title: 'ズームブラー',
+    tags: ['テキスト', 'アニメーション'],
+    prompt: 'テキストがズームしながらぼやけて消えてまた戻るアニメーションを作って。インパクトのある登場演出',
+    html: '<span class="fx-zoom-blur">ZOOM</span>',
+    code: {
+      html: '<span class="zoom-blur">ZOOM</span>',
+      css: `.zoom-blur {
+  font-size: 2rem;
+  font-weight: 700;
+  animation: zoom-blur 3s ease-in-out infinite;
+}
+
+@keyframes zoom-blur {
+  0%, 100% { transform: scale(1); filter: blur(0); opacity: 1; }
+  50% { transform: scale(1.5); filter: blur(3px); opacity: 0.5; }
+}`
+    }
+  },
+
+  // --- その他の文字系 ---
+  {
+    id: 'multiline-type', trigger: 'auto', sub: 'text-other',
+    title: 'コードタイピング',
+    tags: ['テキスト', 'アニメーション', 'JS'],
+    prompt: 'コードが1文字ずつタイピングされるようにコンソール風に表示されるアニメーションを作って。カーソル付きで',
+    html: '<div class="fx-multiline-type" id="multitype-el"></div>',
+    code: {
+      html: '<div class="code-type" id="codeEl"></div>',
+      css: `.code-type {
+  font-family: monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.cursor {
+  display: inline-block;
+  width: 8px; height: 1em;
+  background: #333;
+  vertical-align: text-bottom;
+  animation: blink 0.7s step-end infinite;
+}
+
+@keyframes blink { 50% { opacity: 0; } }`,
+      js: `const code = 'const hello = () => {\\n  console.log("Hi!");\\n};';
+const el = document.getElementById('codeEl');
+let i = 0;
+function type() {
+  if (i <= code.length) {
+    el.innerHTML = code.substring(0, i) + '<span class="cursor"></span>';
+    i++;
+    setTimeout(type, 50);
+  } else {
+    setTimeout(() => { i = 0; type(); }, 2000);
+  }
+}
+type();`
+    },
+    init: (el) => {
+      const span = el.querySelector('#multitype-el');
+      if (!span) return;
+      const code = 'const hello = () => {\n  console.log("Hi!");\n};';
+      let i = 0;
+      function type() {
+        if (i <= code.length) {
+          span.innerHTML = code.substring(0, i).replace(/\n/g, '<br>') + '<span class="cursor" style="display:inline-block;width:8px;height:1em;background:var(--text);vertical-align:text-bottom;animation:blink-caret-td 0.7s step-end infinite"></span>';
+          i++;
+          setTimeout(type, 50);
+        } else {
+          setTimeout(() => { i = 0; type(); }, 2000);
+        }
+      }
+      type();
+    }
+  },
+
+  // --- 枠系 ---
+  {
+    id: 'parallax-demo', trigger: 'auto', sub: 'border',
+    title: 'パララックス（視差効果）',
+    tags: ['背景', 'アニメーション', 'JS'],
+    prompt: 'マウスの位置に応じて背景と前景が異なる速度で動くパララックスエフェクトを作って',
+    html: '<div class="fx-parallax-demo" id="parallax-demo-el"><div class="fx-parallax-layer fx-parallax-back">BG</div><div class="fx-parallax-layer fx-parallax-front">PARALLAX</div></div>',
+    code: {
+      html: `<div class="parallax-area">
+  <div class="parallax-back">BG</div>
+  <div class="parallax-front">PARALLAX</div>
+</div>`,
+      css: `.parallax-area {
+  position: relative;
+  width: 100%; height: 200px;
+  overflow: hidden; border-radius: 8px;
+}
+
+.parallax-back, .parallax-front {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-weight: 700;
+}
+
+.parallax-back {
+  inset: 0;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: rgba(255,255,255,0.3);
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.parallax-front {
+  top: 30%;
+  color: #fff;
+  font-size: 1.5rem;
+}`,
+      js: `const area = document.querySelector('.parallax-area');
+const back = area.querySelector('.parallax-back');
+const front = area.querySelector('.parallax-front');
+
+area.addEventListener('mousemove', (e) => {
+  const rect = area.getBoundingClientRect();
+  const x = (e.clientX - rect.left) / rect.width - 0.5;
+  const y = (e.clientY - rect.top) / rect.height - 0.5;
+  back.style.transform = \`translate(\${x * 10}px, \${y * 10}px)\`;
+  front.style.transform = \`translate(\${x * 25}px, \${y * 25}px)\`;
+});`
+    },
+    init: (el) => {
+      const area = el.querySelector('#parallax-demo-el');
+      if (!area) return;
+      const back = area.querySelector('.fx-parallax-back');
+      const front = area.querySelector('.fx-parallax-front');
+      area.addEventListener('mousemove', (e) => {
+        const rect = area.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        back.style.transform = `translate(${x * 10}px, ${y * 10}px)`;
+        front.style.transform = `translate(${x * 25}px, ${y * 25}px)`;
+      });
+    }
+  },
+
+  // --- その他 ---
+  {
+    id: 'custom-cursor', trigger: 'auto', sub: 'other',
+    title: 'カスタムカーソル',
+    tags: ['インタラクション', 'JS'],
+    prompt: 'マウスカーソルの代わりに丸いカスタムカーソルが追従するエフェクトを作って。少し遅れてついてくるように',
+    html: '<div class="fx-cursor-area" id="cursor-area-el">この中でマウスを動かしてね<div class="fx-custom-cursor" id="custom-cursor-el"></div></div>',
+    code: {
+      html: `<div class="cursor-area">
+  <div class="custom-cursor" id="cursor"></div>
+</div>`,
+      css: `.cursor-area {
+  width: 100%; height: 200px;
+  border: 1px dashed #ddd;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  cursor: none;
+}
+
+.custom-cursor {
+  position: absolute;
+  width: 20px; height: 20px;
+  border: 2px solid #0071e3;
+  border-radius: 50%;
+  pointer-events: none;
+  transition: transform 0.15s ease;
+  transform: translate(-50%, -50%);
+}`,
+      js: `const area = document.querySelector('.cursor-area');
+const cursor = document.getElementById('cursor');
+
+area.addEventListener('mousemove', (e) => {
+  const rect = area.getBoundingClientRect();
+  cursor.style.left = (e.clientX - rect.left) + 'px';
+  cursor.style.top = (e.clientY - rect.top) + 'px';
+});`
+    },
+    init: (el) => {
+      const area = el.querySelector('#cursor-area-el');
+      const cursor = el.querySelector('#custom-cursor-el');
+      if (!area || !cursor) return;
+      area.addEventListener('mousemove', (e) => {
+        const rect = area.getBoundingClientRect();
+        cursor.style.left = (e.clientX - rect.left) + 'px';
+        cursor.style.top = (e.clientY - rect.top) + 'px';
+      });
+    }
+  },
+
+  // --- ホバー ---
+  {
+    id: 'double-underline', trigger: 'hover',
+    title: '二重下線ホバー',
+    tags: ['リンク', 'ホバー', 'アニメーション'],
+    prompt: 'リンクにホバーすると二重の下線が順番に左から伸びてくるエフェクトを作って',
+    html: '<a class="fx-double-underline" href="#">Double Line</a>',
+    code: {
+      html: '<a class="double-underline" href="#">Double Line</a>',
+      css: `.double-underline {
+  font-size: 1.5rem;
+  font-weight: 600;
+  position: relative;
+  text-decoration: none;
+  color: #333;
+}
+
+.double-underline::before,
+.double-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 0; height: 2px;
+  background: #0071e3;
+  transition: width 0.3s ease;
+}
+
+.double-underline::before { bottom: -2px; }
+.double-underline::after { bottom: -7px; transition-delay: 0.1s; }
+
+.double-underline:hover::before,
+.double-underline:hover::after { width: 100%; }`
+    }
+  },
+  {
+    id: 'img-overlay', trigger: 'hover',
+    title: 'ホバーで暗くしてテキスト表示',
+    tags: ['カード', 'ホバー', 'アニメーション'],
+    prompt: '画像にホバーすると暗いオーバーレイがかかってテキストがフェードインするエフェクトを作って',
+    html: '<div class="fx-img-overlay"><div class="fx-img-overlay-bg"></div><div class="fx-img-overlay-text">View Details</div></div>',
+    code: {
+      html: `<div class="img-overlay">
+  <img src="image.jpg" class="overlay-bg" alt="">
+  <div class="overlay-text">View Details</div>
+</div>`,
+      css: `.img-overlay {
+  position: relative;
+  width: 200px; height: 100px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.overlay-bg {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.overlay-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0);
+  color: #fff;
+  font-weight: 700;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.img-overlay:hover .overlay-bg { transform: scale(1.1); }
+
+.img-overlay:hover .overlay-text {
+  opacity: 1;
+  transform: translateY(0);
+  background: rgba(0,0,0,0.4);
+}`
+    }
+  },
+
+  // --- クリック ---
+  {
+    id: 'rubber-click', trigger: 'click',
+    title: 'ラバーバンド（ゴムパッチン）',
+    tags: ['テキスト', 'インタラクション', 'アニメーション'],
+    prompt: 'クリックするとゴムのようにびよーんと伸び縮みするラバーバンドアニメーションを作って',
+    html: '<span class="fx-rubber" id="rubber-el">Click me!</span>',
+    code: {
+      html: '<span class="rubber" id="rubberEl">Click me!</span>',
+      css: `.rubber {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.rubber.is-animating {
+  animation: rubber 0.8s ease;
+}
+
+@keyframes rubber {
+  30% { transform: scaleX(1.25) scaleY(0.75); }
+  40% { transform: scaleX(0.75) scaleY(1.25); }
+  50% { transform: scaleX(1.15) scaleY(0.85); }
+  65% { transform: scaleX(0.95) scaleY(1.05); }
+  75% { transform: scaleX(1.05) scaleY(0.95); }
+  100% { transform: scaleX(1) scaleY(1); }
+}`,
+      js: `document.getElementById('rubberEl').addEventListener('click', function() {
+  this.classList.remove('is-animating');
+  void this.offsetWidth; // reflow
+  this.classList.add('is-animating');
+});`
+    },
+    init: (el) => {
+      const span = el.querySelector('#rubber-el');
+      if (!span) return;
+      span.addEventListener('click', function() {
+        this.classList.remove('is-animating');
+        void this.offsetWidth;
+        this.classList.add('is-animating');
+      });
+    }
+  },
+  {
+    id: 'compare', trigger: 'click',
+    title: 'ビフォーアフター比較',
+    tags: ['UI部品', 'インタラクション', 'JS'],
+    prompt: 'ドラッグで左右に動かせるビフォーアフター比較スライダーを作って。画像や要素を左右で比較できるように',
+    html: '<div class="fx-compare" id="compare-el"><div class="fx-compare-after">After</div><div class="fx-compare-before" id="compare-before">Before</div><div class="fx-compare-line" id="compare-line"></div></div>',
+    code: {
+      html: `<div class="compare" id="compareEl">
+  <div class="compare-after">After</div>
+  <div class="compare-before" id="before">Before</div>
+  <div class="compare-line" id="line"></div>
+</div>`,
+      css: `.compare {
+  position: relative;
+  width: 300px; height: 150px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: ew-resize;
+}
+
+.compare-before, .compare-after {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #fff;
+}
+
+.compare-after { background: #e74c3c; }
+.compare-before { background: #667eea; clip-path: inset(0 50% 0 0); }
+
+.compare-line {
+  position: absolute;
+  top: 0; left: 50%;
+  width: 3px; height: 100%;
+  background: #fff;
+  transform: translateX(-50%);
+}`,
+      js: `const el = document.getElementById('compareEl');
+const before = document.getElementById('before');
+const line = document.getElementById('line');
+
+el.addEventListener('mousemove', (e) => {
+  const rect = el.getBoundingClientRect();
+  const x = ((e.clientX - rect.left) / rect.width) * 100;
+  before.style.clipPath = \`inset(0 \${100 - x}% 0 0)\`;
+  line.style.left = x + '%';
+});`
+    },
+    init: (el) => {
+      const area = el.querySelector('#compare-el');
+      const before = el.querySelector('#compare-before');
+      const line = el.querySelector('#compare-line');
+      if (!area || !before || !line) return;
+      area.addEventListener('mousemove', (e) => {
+        const rect = area.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        before.style.clipPath = `inset(0 ${100 - x}% 0 0)`;
+        line.style.left = x + '%';
+      });
+    }
+  },
 ];
