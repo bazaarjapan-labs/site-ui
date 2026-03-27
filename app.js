@@ -2,11 +2,20 @@
   // ===== State =====
   const state = {
     activeTag: null,
+    activeTrigger: null,
     favOnly: false,
     searchQuery: '',
     favorites: JSON.parse(localStorage.getItem('ui-favs') || '[]'),
     codeOpen: {},
   };
+
+  const TRIGGER_LABELS = {
+    auto: '常時アニメーション',
+    hover: 'ホバーで動く',
+    click: 'クリックで動く',
+  };
+
+  const TRIGGER_ORDER = ['auto', 'hover', 'click'];
 
   const $ = (sel, ctx = document) => ctx.querySelector(sel);
   const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
@@ -67,14 +76,23 @@
     return parts.join('\n\n');
   }
 
+  // ===== Trigger Badge =====
+  function triggerBadge(trigger) {
+    const map = {
+      auto: ['⚡', 'badge-auto'],
+      hover: ['👆', 'badge-hover'],
+      click: ['🖱️', 'badge-click'],
+    };
+    const [icon, cls] = map[trigger] || ['', ''];
+    return `<span class="trigger-badge ${cls}">${icon} ${TRIGGER_LABELS[trigger] || ''}</span>`;
+  }
+
   // ===== Render Card =====
   function renderCard(effect) {
     const card = document.createElement('div');
     card.className = 'card';
     card.dataset.id = effect.id;
     card.dataset.tags = effect.tags.join(',');
-
-    const codeStr = buildCodeStr(effect.code);
 
     card.innerHTML = `
       <div class="card-header">
@@ -122,17 +140,59 @@
     ).join('');
   }
 
+  // ===== Render Trigger Filters =====
+  function renderTriggerFilters() {
+    const container = $('#triggerFilters');
+    container.innerHTML = TRIGGER_ORDER.map(t => {
+      const icons = { auto: '⚡', hover: '👆', click: '🖱️' };
+      return `<button class="trigger-filter-btn" data-trigger="${t}">${icons[t]} ${TRIGGER_LABELS[t]}</button>`;
+    }).join('');
+  }
+
   // ===== Filter Effects =====
   function getFilteredEffects() {
     return EFFECTS.filter(e => {
       if (state.favOnly && !isFav(e.id)) return false;
       if (state.activeTag && !e.tags.includes(state.activeTag)) return false;
+      if (state.activeTrigger && e.trigger !== state.activeTrigger) return false;
       if (state.searchQuery) {
         const q = state.searchQuery.toLowerCase();
         const searchable = (e.title + e.prompt + e.tags.join(' ')).toLowerCase();
         if (!searchable.includes(q)) return false;
       }
       return true;
+    });
+  }
+
+  // ===== Sub-category config =====
+  const SUB_ORDER = ['move', 'color', 'text-other', 'border', 'other'];
+  const SUB_LABELS = {
+    move: '文字が動く',
+    color: '色が変わる',
+    'text-other': 'その他の文字系',
+    border: '枠系',
+    other: 'その他',
+  };
+  const SUB_ICONS = {
+    move: '💫',
+    color: '🎨',
+    'text-other': '✏️',
+    border: '🔲',
+    other: '📦',
+  };
+
+  // ===== Append cards to a grid =====
+  function appendCards(grid, effects) {
+    effects.forEach(effect => {
+      const card = renderCard(effect);
+      grid.appendChild(card);
+      if (state.codeOpen[effect.id]) {
+        const codeEl = card.querySelector(`.js-code[data-id="${effect.id}"]`);
+        const btn = card.querySelector(`.js-toggle-code[data-id="${effect.id}"]`);
+        if (codeEl) codeEl.classList.add('show');
+        if (btn) btn.classList.add('active');
+      }
+      if (effect.init) effect.init(card);
     });
   }
 
@@ -148,22 +208,68 @@
       return;
     }
 
-    filtered.forEach(effect => {
-      const card = renderCard(effect);
-      gallery.appendChild(card);
+    // Group by trigger
+    const groups = {};
+    TRIGGER_ORDER.forEach(t => { groups[t] = []; });
+    filtered.forEach(e => {
+      const t = e.trigger || 'auto';
+      if (!groups[t]) groups[t] = [];
+      groups[t].push(e);
+    });
 
-      // Restore code open state
-      if (state.codeOpen[effect.id]) {
-        const codeEl = card.querySelector(`.js-code[data-id="${effect.id}"]`);
-        const btn = card.querySelector(`.js-toggle-code[data-id="${effect.id}"]`);
-        if (codeEl) codeEl.classList.add('show');
-        if (btn) btn.classList.add('active');
+    const triggerIcons = { auto: '⚡', hover: '👆', click: '🖱️' };
+
+    TRIGGER_ORDER.forEach(trigger => {
+      const effects = groups[trigger];
+      if (!effects || effects.length === 0) return;
+
+      // Main trigger section
+      const section = document.createElement('div');
+      section.className = 'section-group';
+      section.innerHTML = `
+        <div class="section-header">
+          <span class="section-icon">${triggerIcons[trigger]}</span>
+          <h2 class="section-title">${TRIGGER_LABELS[trigger]}</h2>
+          <span class="section-count">${effects.length}</span>
+        </div>
+      `;
+
+      if (trigger === 'auto') {
+        // Sub-group auto effects
+        const subs = {};
+        SUB_ORDER.forEach(s => { subs[s] = []; });
+        effects.forEach(e => {
+          const s = e.sub || 'other';
+          if (!subs[s]) subs[s] = [];
+          subs[s].push(e);
+        });
+
+        SUB_ORDER.forEach(sub => {
+          const subEffects = subs[sub];
+          if (!subEffects || subEffects.length === 0) return;
+
+          const subSection = document.createElement('div');
+          subSection.className = 'sub-section';
+          subSection.innerHTML = `
+            <div class="sub-header">
+              <span class="sub-icon">${SUB_ICONS[sub]}</span>
+              <h3 class="sub-title">${SUB_LABELS[sub]}</h3>
+              <span class="section-count">${subEffects.length}</span>
+            </div>
+            <div class="section-grid"></div>
+          `;
+          appendCards(subSection.querySelector('.section-grid'), subEffects);
+          section.appendChild(subSection);
+        });
+      } else {
+        // Hover / Click - flat grid
+        const gridEl = document.createElement('div');
+        gridEl.className = 'section-grid';
+        appendCards(gridEl, effects);
+        section.appendChild(gridEl);
       }
 
-      // Run init
-      if (effect.init) {
-        effect.init(card);
-      }
+      gallery.appendChild(section);
     });
   }
 
@@ -238,6 +344,23 @@
       renderGallery();
     });
 
+    // Trigger filters
+    $('#triggerFilters').addEventListener('click', (e) => {
+      const btn = e.target.closest('.trigger-filter-btn');
+      if (!btn) return;
+
+      const trigger = btn.dataset.trigger;
+      if (state.activeTrigger === trigger) {
+        state.activeTrigger = null;
+        btn.classList.remove('active');
+      } else {
+        $$('.trigger-filter-btn').forEach(b => b.classList.remove('active'));
+        state.activeTrigger = trigger;
+        btn.classList.add('active');
+      }
+      renderGallery();
+    });
+
     // Fav filter
     $('#favFilterBtn').addEventListener('click', () => {
       state.favOnly = !state.favOnly;
@@ -264,6 +387,7 @@
       $('#themeToggle').querySelector('.theme-icon').textContent = '☀️';
     }
 
+    renderTriggerFilters();
     renderFilterTags();
     renderGallery();
     setupEvents();

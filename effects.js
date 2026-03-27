@@ -1,7 +1,7 @@
 const EFFECTS = [
   // ===== テキスト系 =====
   {
-    id: 'rainbow',
+    id: 'rainbow', trigger: 'auto', sub: 'color',
     title: 'レインボーテキスト',
     tags: ['テキスト', 'グラデーション', 'アニメーション'],
     prompt: 'テキストが虹色に流れるように光るCSSアニメーションを作って',
@@ -25,7 +25,7 @@ const EFFECTS = [
     }
   },
   {
-    id: 'shake',
+    id: 'shake', trigger: 'auto', sub: 'move',
     title: '揺れるテキスト',
     tags: ['テキスト', 'アニメーション'],
     prompt: 'テキストが左右に小刻みに揺れるアニメーションを作って',
@@ -47,7 +47,7 @@ const EFFECTS = [
     }
   },
   {
-    id: 'glow',
+    id: 'glow', trigger: 'auto', sub: 'color',
     title: '光るテキスト（パルス）',
     tags: ['テキスト', '光', 'アニメーション'],
     prompt: 'テキストがネオンのように光って脈打つCSSエフェクトを作って',
@@ -68,7 +68,7 @@ const EFFECTS = [
     }
   },
   {
-    id: 'typewriter',
+    id: 'typewriter', trigger: 'auto', sub: 'text-other',
     title: 'タイプライター',
     tags: ['テキスト', 'アニメーション'],
     prompt: 'テキストが1文字ずつ表示されるタイプライター風アニメーションをCSSで作って',
@@ -96,7 +96,7 @@ const EFFECTS = [
     }
   },
   {
-    id: 'bounce',
+    id: 'bounce', trigger: 'auto', sub: 'move',
     title: 'バウンド文字',
     tags: ['テキスト', 'アニメーション'],
     prompt: 'テキストの各文字が順番に跳ねるアニメーションを作って。文字ごとに遅延をつけて波のように動かして',
@@ -129,7 +129,7 @@ const EFFECTS = [
     }
   },
   {
-    id: 'neon',
+    id: 'neon', trigger: 'auto', sub: 'color',
     title: 'ネオンフリッカー',
     tags: ['テキスト', '光', 'アニメーション'],
     prompt: 'テキストがネオンサインのようにチカチカ点滅しながら光るエフェクトを作って',
@@ -155,7 +155,7 @@ const EFFECTS = [
     }
   },
   {
-    id: 'glitch',
+    id: 'glitch', trigger: 'auto', sub: 'text-other',
     title: 'グリッチテキスト',
     tags: ['テキスト', 'アニメーション', 'エフェクト'],
     prompt: 'テキストがグリッチ（バグっぽく）ブレて赤と青がズレるエフェクトを作って',
@@ -202,7 +202,7 @@ const EFFECTS = [
     }
   },
   {
-    id: 'gradient-text',
+    id: 'gradient-text', trigger: 'auto', sub: 'color',
     title: 'グラデーションテキスト',
     tags: ['テキスト', 'グラデーション'],
     prompt: '文字に紫からピンクのグラデーションを付けて。背景じゃなく文字自体をグラデーションにして',
@@ -220,7 +220,7 @@ const EFFECTS = [
     }
   },
   {
-    id: 'text-stroke',
+    id: 'text-stroke', trigger: 'hover',
     title: 'アウトラインテキスト',
     tags: ['テキスト', 'ホバー'],
     prompt: '文字を中が透明で輪郭だけの袋文字にして、ホバーで色が塗りつぶされるようにして',
@@ -242,7 +242,7 @@ const EFFECTS = [
     }
   },
   {
-    id: 'float',
+    id: 'float', trigger: 'auto', sub: 'move',
     title: 'ふわふわ浮遊',
     tags: ['テキスト', 'アニメーション'],
     prompt: 'テキストがゆっくり上下にふわふわ浮遊するアニメーションを作って',
@@ -263,7 +263,7 @@ const EFFECTS = [
     }
   },
   {
-    id: 'shadow-pop',
+    id: 'shadow-pop', trigger: 'auto', sub: 'move',
     title: '立体シャドウ',
     tags: ['テキスト', 'アニメーション', '3D'],
     prompt: 'テキストに段階的な影をつけて立体的に飛び出すアニメーションを作って',
@@ -290,7 +290,7 @@ const EFFECTS = [
     }
   },
   {
-    id: 'wave-underline',
+    id: 'wave-underline', trigger: 'auto', sub: 'color',
     title: 'レインボーアンダーライン',
     tags: ['テキスト', 'グラデーション', 'アニメーション'],
     prompt: 'テキストの下に虹色のアンダーラインが流れるように動くエフェクトを作って',
@@ -321,7 +321,7 @@ const EFFECTS = [
     }
   },
   {
-    id: 'stagger',
+    id: 'stagger', trigger: 'auto', sub: 'move',
     title: '順次フェードイン',
     tags: ['テキスト', 'アニメーション'],
     prompt: '文字が1文字ずつ下からフェードインしながら現れるアニメーションを作って',
@@ -357,7 +357,7 @@ const EFFECTS = [
 
   // ===== ボタン・インタラクション系 =====
   {
-    id: 'gradient-border',
+    id: 'gradient-border', trigger: 'auto', sub: 'border',
     title: 'グラデーション枠ボタン',
     tags: ['ボタン', 'グラデーション', 'アニメーション'],
     prompt: 'ボタンの枠線が虹色にアニメーションで変化するグラデーションボーダーボタンを作って',
@@ -395,7 +395,7 @@ const EFFECTS = [
     }
   },
   {
-    id: 'ripple',
+    id: 'ripple', trigger: 'click',
     title: 'リップルボタン',
     tags: ['ボタン', 'インタラクション', 'JS'],
     prompt: 'ボタンをクリックした位置から波紋が広がるマテリアルデザイン風リップルエフェクトを作って',
@@ -457,7 +457,7 @@ const EFFECTS = [
     }
   },
   {
-    id: 'underline-link',
+    id: 'underline-link', trigger: 'hover',
     title: 'ホバーアンダーラインリンク',
     tags: ['リンク', 'ホバー', 'アニメーション'],
     prompt: 'リンクにホバーすると下線が左から右にスッと伸びてくるアニメーションを作って',
@@ -487,7 +487,7 @@ const EFFECTS = [
     }
   },
   {
-    id: 'hover-card',
+    id: 'hover-card', trigger: 'hover',
     title: 'ホバー拡大カード',
     tags: ['カード', 'ホバー', 'アニメーション'],
     prompt: 'カードにホバーしたらふわっと拡大してシャドウが深くなるエフェクトを作って',
@@ -511,7 +511,7 @@ const EFFECTS = [
     }
   },
   {
-    id: 'tooltip',
+    id: 'tooltip', trigger: 'hover',
     title: 'ツールチップ',
     tags: ['UI部品', 'ホバー', 'アニメーション'],
     prompt: '要素にホバーすると上にふわっとツールチップが表示されるCSSのみのエフェクトを作って',
@@ -565,7 +565,7 @@ const EFFECTS = [
 
   // ===== ローダー系 =====
   {
-    id: 'spinner',
+    id: 'spinner', trigger: 'auto', sub: 'other',
     title: 'スピナーローダー',
     tags: ['ローダー', 'アニメーション'],
     prompt: 'くるくる回転するシンプルなローディングスピナーを作って',
@@ -587,7 +587,7 @@ const EFFECTS = [
     }
   },
   {
-    id: 'dot-loader',
+    id: 'dot-loader', trigger: 'auto', sub: 'other',
     title: 'ドットローダー',
     tags: ['ローダー', 'アニメーション'],
     prompt: '3つのドットが順番に跳ねるローディングアニメーションを作って',
@@ -618,7 +618,7 @@ const EFFECTS = [
     }
   },
   {
-    id: 'skeleton',
+    id: 'skeleton', trigger: 'auto', sub: 'other',
     title: 'スケルトンローダー',
     tags: ['ローダー', 'アニメーション', 'UI部品'],
     prompt: 'コンテンツ読み込み中に表示するスケルトンローダー（シマー付き）を作って',
@@ -649,7 +649,7 @@ const EFFECTS = [
     }
   },
   {
-    id: 'progress',
+    id: 'progress', trigger: 'auto', sub: 'other',
     title: 'プログレスバー',
     tags: ['ローダー', 'アニメーション', 'UI部品'],
     prompt: 'グラデーション付きでアニメーションするプログレスバーを作って',
@@ -686,7 +686,7 @@ const EFFECTS = [
 
   // ===== 装飾・図形系 =====
   {
-    id: 'morph',
+    id: 'morph', trigger: 'auto', sub: 'other',
     title: 'モーフィングシェイプ',
     tags: ['図形', 'アニメーション'],
     prompt: '丸い図形がグラデーションを保ちながらアメーバのように形を変え続けるアニメーションを作って',
@@ -708,7 +708,7 @@ const EFFECTS = [
     }
   },
   {
-    id: 'marquee',
+    id: 'marquee', trigger: 'auto', sub: 'move',
     title: 'マーキー（流れるテキスト）',
     tags: ['テキスト', 'アニメーション'],
     prompt: 'テキストが右から左にスクロールし続けるマーキーアニメーションを作って',
@@ -737,7 +737,7 @@ const EFFECTS = [
     }
   },
   {
-    id: 'pulse',
+    id: 'pulse', trigger: 'auto', sub: 'move',
     title: 'パルス拡大',
     tags: ['テキスト', 'アニメーション'],
     prompt: 'テキストがドクドクと脈打つように拡大縮小を繰り返すアニメーションを作って',
@@ -758,7 +758,7 @@ const EFFECTS = [
     }
   },
   {
-    id: 'elastic',
+    id: 'elastic', trigger: 'auto', sub: 'move',
     title: 'エラスティック（弾む）',
     tags: ['テキスト', 'アニメーション'],
     prompt: 'テキストがゴムのように横に伸びたり縦に伸びたりする弾むアニメーションを作って',
@@ -783,7 +783,7 @@ const EFFECTS = [
     }
   },
   {
-    id: 'flip',
+    id: 'flip', trigger: 'auto', sub: 'move',
     title: 'フリップ回転',
     tags: ['テキスト', 'アニメーション', '3D'],
     prompt: 'テキストがY軸で180度くるっと回転するフリップアニメーションを作って',
@@ -804,7 +804,7 @@ const EFFECTS = [
     }
   },
   {
-    id: 'blur-in',
+    id: 'blur-in', trigger: 'auto', sub: 'move',
     title: 'ブラーイン・アウト',
     tags: ['テキスト', 'アニメーション'],
     prompt: 'テキストがぼやけて消えてまた現れるブラーアニメーションを作って',
@@ -824,7 +824,7 @@ const EFFECTS = [
     }
   },
   {
-    id: 'slide-up',
+    id: 'slide-up', trigger: 'auto', sub: 'move',
     title: 'スライドアップフェード',
     tags: ['テキスト', 'アニメーション'],
     prompt: 'テキストが下からスライドしながらフェードインして上にスライドしながらフェードアウトするアニメーションを作って',
@@ -847,7 +847,7 @@ const EFFECTS = [
 
   // ===== 枠が光る系 =====
   {
-    id: 'neon-box',
+    id: 'neon-box', trigger: 'auto', sub: 'border',
     title: 'ネオン枠グロー',
     tags: ['枠', '光', 'アニメーション'],
     prompt: '要素の枠線がネオンのように光って脈打つbox-shadowエフェクトを作って。シアン色のネオンサイン風にして',
@@ -878,7 +878,7 @@ const EFFECTS = [
     }
   },
   {
-    id: 'rainbow-border',
+    id: 'rainbow-border', trigger: 'auto', sub: 'border',
     title: '虹色回転ボーダー',
     tags: ['枠', 'グラデーション', 'アニメーション'],
     prompt: '要素の枠線が虹色のグラデーションでくるくる回転するボーダーエフェクトを作って。conic-gradientで回転させて',
@@ -925,7 +925,7 @@ rotate();`
     }
   },
   {
-    id: 'breathing-glow',
+    id: 'breathing-glow', trigger: 'auto', sub: 'border',
     title: '呼吸する光の枠',
     tags: ['枠', '光', 'アニメーション'],
     prompt: '要素の枠線が呼吸するようにじんわり光ったり暗くなったりを繰り返すグローエフェクトを作って。紫系で',
@@ -951,6 +951,1527 @@ rotate();`
     box-shadow: 0 0 15px rgba(118,75,162,0.6), 0 0 30px rgba(118,75,162,0.3), 0 0 45px rgba(118,75,162,0.1);
     border-color: rgba(118,75,162,1);
   }
+}`
+    }
+  },
+
+  // ===== 追加エフェクト =====
+  {
+    id: 'glass', trigger: 'auto', sub: 'border',
+    title: 'すりガラス（グラスモーフィズム）',
+    tags: ['カード', 'デザイン'],
+    prompt: 'すりガラス風の半透明カード（グラスモーフィズム）を作って。backdrop-filterで背景をぼかして、白い半透明ボーダーを付けて',
+    html: '<div class="fx-glass-area"><div class="fx-glass">Glassmorphism Card</div></div>',
+    code: {
+      html: '<div class="glass-card">Glassmorphism Card</div>',
+      css: `.glass-card {
+  padding: 24px 32px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 12px;
+  color: #fff;
+  font-weight: 600;
+}`
+    }
+  },
+  {
+    id: 'fill-btn', trigger: 'hover',
+    title: 'ホバー塗りつぶしボタン',
+    tags: ['ボタン', 'ホバー', 'アニメーション'],
+    prompt: 'ボタンにホバーしたら左から背景色がスライドして塗りつぶされるエフェクトを作って。枠線だけのボタンからベタ塗りに変わる感じで',
+    html: '<button class="fx-fill-btn">Hover me</button>',
+    code: {
+      html: '<button class="fill-btn">Hover me</button>',
+      css: `.fill-btn {
+  position: relative;
+  padding: 12px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0071e3;
+  background: transparent;
+  border: 2px solid #0071e3;
+  border-radius: 8px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: color 0.4s;
+  z-index: 1;
+}
+
+.fill-btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: #0071e3;
+  transition: left 0.4s;
+  z-index: -1;
+}
+
+.fill-btn:hover { color: #fff; }
+.fill-btn:hover::before { left: 0; }`
+    }
+  },
+  {
+    id: 'badge', trigger: 'auto', sub: 'other',
+    title: '通知バッジ（パルス）',
+    tags: ['UI部品', 'アニメーション'],
+    prompt: '要素の右上に赤い通知バッジを付けて、ping/パルスアニメーションで注意を引くようにして',
+    html: '<div class="fx-badge-wrap">通知<span class="fx-badge">3</span></div>',
+    code: {
+      html: `<div class="badge-wrap">
+  通知
+  <span class="badge">3</span>
+</div>`,
+      css: `.badge-wrap {
+  position: relative;
+  display: inline-block;
+  padding: 10px 24px;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.badge {
+  position: absolute;
+  top: -6px; right: -6px;
+  width: 18px; height: 18px;
+  background: #ff3b30;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+
+.badge::after {
+  content: '';
+  position: absolute;
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  background: #ff3b30;
+  animation: badge-ping 1.5s cubic-bezier(0,0,0.2,1) infinite;
+}
+
+@keyframes badge-ping {
+  75%, 100% { transform: scale(2.2); opacity: 0; }
+}`
+    }
+  },
+  {
+    id: 'gradient-bg', trigger: 'auto', sub: 'border',
+    title: 'グラデーション背景アニメーション',
+    tags: ['背景', 'グラデーション', 'アニメーション'],
+    prompt: '背景のグラデーションがゆっくり色が移り変わるアニメーションを作って。4色のグラデーションを対角線に配置して',
+    html: '<div class="fx-gradient-bg">Animated Gradient</div>',
+    code: {
+      html: '<div class="gradient-bg">Animated Gradient</div>',
+      css: `.gradient-bg {
+  padding: 32px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient-shift 6s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}`
+    }
+  },
+  {
+    id: 'shine', trigger: 'hover',
+    title: 'ホバーで光が走るボタン',
+    tags: ['ボタン', 'ホバー', 'アニメーション'],
+    prompt: 'ボタンにホバーすると斜めに光が左から右にシュッと走るシャイン/グリントエフェクトを作って',
+    html: '<button class="fx-shine">Shine Effect</button>',
+    code: {
+      html: '<button class="shine-btn">Shine Effect</button>',
+      css: `.shine-btn {
+  position: relative;
+  padding: 16px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: #0071e3;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.shine-btn::after {
+  content: '';
+  position: absolute;
+  top: -50%; left: -75%;
+  width: 50%; height: 200%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transform: skewX(-25deg);
+  transition: left 0.6s;
+}
+
+.shine-btn:hover::after {
+  left: 125%;
+}`
+    }
+  },
+  {
+    id: 'shine-loop', trigger: 'auto', sub: 'border',
+    title: '常時シャインボタン',
+    tags: ['ボタン', 'アニメーション'],
+    prompt: 'ボタンの上を斜めの光が繰り返し左から右にシュッと走り続けるシャインエフェクトを作って。ホバー不要で常時アニメーションで',
+    html: '<button class="fx-shine-loop">Shine Loop</button>',
+    code: {
+      html: '<button class="shine-loop-btn">Shine Loop</button>',
+      css: `.shine-loop-btn {
+  position: relative;
+  padding: 16px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: #0071e3;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.shine-loop-btn::after {
+  content: '';
+  position: absolute;
+  top: -50%; left: -75%;
+  width: 50%; height: 200%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  transform: skewX(-25deg);
+  animation: shine-loop 2.5s ease-in-out infinite;
+}
+
+@keyframes shine-loop {
+  0% { left: -75%; }
+  100% { left: 125%; }
+}`
+    }
+  },
+  {
+    id: 'wavy', trigger: 'auto', sub: 'move',
+    title: 'ウェーブテキスト',
+    tags: ['テキスト', 'アニメーション'],
+    prompt: '文字が1文字ずつ波のように上下に揺れるウェーブアニメーションを作って。各文字にdelayをずらして',
+    html: '<span class="fx-wavy" id="wavy-text"></span>',
+    code: {
+      html: '<span class="wavy-text">Wave!</span>',
+      css: `.wavy-text span {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: 700;
+  animation: wavy 1.5s ease-in-out infinite;
+}
+
+@keyframes wavy {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}`,
+      js: `document.querySelector('.wavy-text').innerHTML =
+  'Wave!'.split('').map((c, i) =>
+    \`<span style="animation-delay:\${i * 0.1}s">\${c}</span>\`
+  ).join('');`
+    },
+    init: (el) => {
+      const t = el.querySelector('#wavy-text');
+      if (t) t.innerHTML = 'Wave!'.split('').map((c, i) =>
+        `<span style="animation-delay:${i * 0.1}s">${c === ' ' ? '&nbsp;' : c}</span>`
+      ).join('');
+    }
+  },
+  {
+    id: 'border-draw', trigger: 'hover',
+    title: 'ホバーで枠線が描かれる',
+    tags: ['ボタン', 'ホバー', 'アニメーション'],
+    prompt: '要素にホバーすると枠線がスッと一周描かれるSVGボーダードローエフェクトを作って',
+    html: '<button class="fx-border-draw">Hover me<svg><rect x="1" y="1" rx="4" ry="4" width="calc(100% - 2px)" height="calc(100% - 2px)"/></svg></button>',
+    code: {
+      html: `<button class="border-draw">
+  Hover me
+  <svg><rect x="1" y="1" rx="4" ry="4"
+    width="calc(100% - 2px)"
+    height="calc(100% - 2px)"/></svg>
+</button>`,
+      css: `.border-draw {
+  position: relative;
+  padding: 16px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.border-draw svg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+
+.border-draw rect {
+  fill: none;
+  stroke: #0071e3;
+  stroke-width: 2;
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  transition: stroke-dashoffset 0.6s ease;
+}
+
+.border-draw:hover rect {
+  stroke-dashoffset: 0;
+}`
+    }
+  },
+  {
+    id: 'wobble', trigger: 'auto', sub: 'move',
+    title: 'ウォブル（ゆらゆら）',
+    tags: ['テキスト', 'アニメーション'],
+    prompt: 'テキストが左右にゆらゆら揺れるウォブルアニメーションを作って。振り子のように徐々に収束する動きで',
+    html: '<span class="fx-wobble">Wobble</span>',
+    code: {
+      html: '<span class="wobble-text">Wobble</span>',
+      css: `.wobble-text {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: 700;
+  animation: wobble 2s ease-in-out infinite;
+}
+
+@keyframes wobble {
+  0%, 100% { transform: rotate(0); }
+  15% { transform: rotate(5deg); }
+  30% { transform: rotate(-5deg); }
+  45% { transform: rotate(3deg); }
+  60% { transform: rotate(-3deg); }
+  75% { transform: rotate(1deg); }
+}`
+    }
+  },
+  {
+    id: 'toggle', trigger: 'click',
+    title: 'トグルスイッチ',
+    tags: ['UI部品', 'インタラクション'],
+    prompt: 'CSSだけでiOS風のトグルスイッチを作って。クリックでON/OFFが切り替わるようにして',
+    html: '<label style="cursor:pointer;display:flex;align-items:center;gap:12px;font-weight:600"><input type="checkbox" class="fx-toggle" checked> ON / OFF</label>',
+    code: {
+      html: '<input type="checkbox" class="toggle" checked>',
+      css: `.toggle {
+  position: relative;
+  width: 52px; height: 28px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: #ccc;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: background 0.3s;
+  border: none;
+}
+
+.toggle::before {
+  content: '';
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 24px; height: 24px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.3s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.toggle:checked { background: #34c759; }
+.toggle:checked::before { transform: translateX(24px); }`
+    }
+  },
+  {
+    id: 'gradient-shadow', trigger: 'hover',
+    title: 'グラデーションシャドウ',
+    tags: ['ボタン', 'ホバー', 'デザイン'],
+    prompt: 'グラデーション背景のボタンに、同じ色のぼんやりした影をつけて浮いてるように見せて。ホバーでさらに浮くように',
+    html: '<button class="fx-gradient-shadow">Gradient Shadow</button>',
+    code: {
+      html: '<button class="gradient-shadow-btn">Gradient Shadow</button>',
+      css: `.gradient-shadow-btn {
+  padding: 20px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px -5px rgba(102,126,234,0.5);
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.gradient-shadow-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px -5px rgba(102,126,234,0.7);
+}`
+    }
+  },
+  {
+    id: 'heartbeat', trigger: 'auto', sub: 'other',
+    title: 'ハートビート',
+    tags: ['アイコン', 'アニメーション'],
+    prompt: 'ハートが心臓の鼓動のようにドクドクと2回拍打って休むアニメーションを作って',
+    html: '<span class="fx-heartbeat">❤️</span>',
+    code: {
+      html: '<span class="heartbeat">❤️</span>',
+      css: `.heartbeat {
+  font-size: 2.5rem;
+  display: inline-block;
+  animation: heartbeat 1.2s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.3); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.3); }
+  70% { transform: scale(1); }
+}`
+    }
+  },
+  {
+    id: 'rotating-words', trigger: 'auto', sub: 'text-other',
+    title: '回転する単語',
+    tags: ['テキスト', 'アニメーション'],
+    prompt: '「私たちは ○○ です」の○○部分が別の単語に次々と切り替わるアニメーションを作って。縦にスライドして入れ替わるように',
+    html: '<div class="fx-rotating-words">私たちは <div class="word-slot"><div class="word-list"><span>エンジニア</span><span>デザイナー</span><span>クリエイター</span><span>チーム</span></div></div> です</div>',
+    code: {
+      html: `<div class="rotating-words">
+  私たちは
+  <div class="word-slot">
+    <div class="word-list">
+      <span>エンジニア</span>
+      <span>デザイナー</span>
+      <span>クリエイター</span>
+      <span>チーム</span>
+    </div>
+  </div>
+  です
+</div>`,
+      css: `.rotating-words {
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.word-slot {
+  display: inline-block;
+  position: relative;
+  height: 1.5em;
+  overflow: hidden;
+  min-width: 100px;
+}
+
+.word-slot span {
+  display: block;
+  height: 1.5em;
+  line-height: 1.5em;
+  color: #0071e3;
+}
+
+.word-list {
+  animation: word-rotate 6s ease-in-out infinite;
+}
+
+@keyframes word-rotate {
+  0%, 20% { transform: translateY(0); }
+  25%, 45% { transform: translateY(-1.5em); }
+  50%, 70% { transform: translateY(-3em); }
+  75%, 95% { transform: translateY(-4.5em); }
+  100% { transform: translateY(0); }
+}`
+    }
+  },
+  {
+    id: 'color-cycle', trigger: 'auto', sub: 'border',
+    title: '色が変わる背景',
+    tags: ['背景', 'アニメーション'],
+    prompt: '背景色がゆっくり赤→オレンジ→緑→青→紫と変化し続けるカラーサイクルアニメーションを作って',
+    html: '<div class="fx-color-cycle">Color Cycle</div>',
+    code: {
+      html: '<div class="color-cycle">Color Cycle</div>',
+      css: `.color-cycle {
+  padding: 32px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  animation: color-cycle 8s linear infinite;
+}
+
+@keyframes color-cycle {
+  0% { background: #e74c3c; }
+  16% { background: #e67e22; }
+  33% { background: #2ecc71; }
+  50% { background: #3498db; }
+  66% { background: #9b59b6; }
+  83% { background: #e74c3c; }
+  100% { background: #e74c3c; }
+}`
+    }
+  },
+  {
+    id: 'decode', trigger: 'auto', sub: 'move',
+    title: 'テキストデコード（解読）',
+    tags: ['テキスト', 'アニメーション', 'JS'],
+    prompt: 'テキストがランダムな文字からデコード（解読）されるように1文字ずつ正しい文字に変わっていくアニメーションを作って',
+    html: '<span class="fx-decode" id="decode-text">DECODING...</span>',
+    code: {
+      html: '<span class="decode-text">HELLO</span>',
+      css: `.decode-text {
+  font-family: monospace;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}`,
+      js: `const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%';
+const target = 'HELLO WORLD';
+const el = document.querySelector('.decode-text');
+let iteration = 0;
+
+const interval = setInterval(() => {
+  el.textContent = target.split('').map((char, i) => {
+    if (i < iteration) return target[i];
+    return chars[Math.floor(Math.random() * chars.length)];
+  }).join('');
+  if (iteration >= target.length) {
+    iteration = 0; // loop
+  }
+  iteration += 1 / 3;
+}, 50);`
+    },
+    init: (el) => {
+      const span = el.querySelector('#decode-text');
+      if (!span) return;
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%';
+      const target = 'HELLO WORLD';
+      let iteration = 0;
+      setInterval(() => {
+        span.textContent = target.split('').map((char, i) => {
+          if (i < iteration) return target[i];
+          return chars[Math.floor(Math.random() * chars.length)];
+        }).join('');
+        if (iteration >= target.length + 10) iteration = 0;
+        iteration += 1 / 3;
+      }, 50);
+    }
+  },
+  {
+    id: 'strikethrough', trigger: 'auto', sub: 'text-other',
+    title: '打ち消し線アニメーション',
+    tags: ['テキスト', 'アニメーション'],
+    prompt: 'テキストに打ち消し線が左から右にスッと引かれるアニメーションを作って。繰り返しで線が消えてまた引かれるように',
+    html: '<span class="fx-strikethrough">SALE ¥9,800</span>',
+    code: {
+      html: '<span class="strikethrough">SALE ¥9,800</span>',
+      css: `.strikethrough {
+  position: relative;
+  display: inline-block;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.strikethrough::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 50%;
+  width: 0; height: 3px;
+  background: #e74c3c;
+  animation: strike 2s ease-in-out infinite;
+}
+
+@keyframes strike {
+  0%, 100% { width: 0; left: 0; }
+  40%, 60% { width: 100%; left: 0; }
+  80% { width: 0; left: 100%; }
+}`
+    }
+  },
+
+  // ===== 追加エフェクト v2 =====
+
+  // --- 色が変わる ---
+  {
+    id: 'shadow-color', trigger: 'auto', sub: 'color',
+    title: '影の色が変わるテキスト',
+    tags: ['テキスト', 'アニメーション'],
+    prompt: 'テキストの影の色が赤→黄→緑→青と順番に変化し続けるアニメーションを作って',
+    html: '<span class="fx-shadow-color">SHADOW</span>',
+    code: {
+      html: '<span class="shadow-color">SHADOW</span>',
+      css: `.shadow-color {
+  font-size: 2rem;
+  font-weight: 800;
+  animation: shadow-color 4s linear infinite;
+}
+
+@keyframes shadow-color {
+  0% { text-shadow: 3px 3px 0 #e74c3c; }
+  25% { text-shadow: 3px 3px 0 #f1c40f; }
+  50% { text-shadow: 3px 3px 0 #2ecc71; }
+  75% { text-shadow: 3px 3px 0 #3498db; }
+  100% { text-shadow: 3px 3px 0 #e74c3c; }
+}`
+    }
+  },
+  {
+    id: 'chromatic', trigger: 'auto', sub: 'color',
+    title: '色収差（RGBずれ）',
+    tags: ['テキスト', 'アニメーション', 'エフェクト'],
+    prompt: 'テキストの赤と青の色がずれて揺れる色収差（クロマティックアベレーション）エフェクトを作って',
+    html: '<span class="fx-chromatic" data-text="CHROME">CHROME</span>',
+    code: {
+      html: '<span class="chromatic" data-text="CHROME">CHROME</span>',
+      css: `.chromatic {
+  font-size: 2rem;
+  font-weight: 800;
+  position: relative;
+}
+
+.chromatic::before, .chromatic::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 0;
+}
+
+.chromatic::before {
+  color: #ff0000;
+  opacity: 0.6;
+  animation: chroma-r 2s ease-in-out infinite;
+}
+
+.chromatic::after {
+  color: #0000ff;
+  opacity: 0.6;
+  animation: chroma-b 2s ease-in-out infinite;
+}
+
+@keyframes chroma-r {
+  0%, 100% { transform: translate(-2px, 0); }
+  50% { transform: translate(2px, 1px); }
+}
+
+@keyframes chroma-b {
+  0%, 100% { transform: translate(2px, 0); }
+  50% { transform: translate(-2px, -1px); }
+}`
+    }
+  },
+
+  // --- その他の文字系 ---
+  {
+    id: 'highlight', trigger: 'hover',
+    title: 'マーカーハイライト',
+    tags: ['テキスト', 'ホバー'],
+    prompt: 'テキストにホバーすると蛍光マーカーで線を引くようにハイライトされるエフェクトを作って',
+    html: '<span class="fx-highlight">重要なテキスト</span>',
+    code: {
+      html: '<span class="highlight">重要なテキスト</span>',
+      css: `.highlight {
+  font-size: 1.5rem;
+  font-weight: 700;
+  position: relative;
+  display: inline;
+  cursor: pointer;
+}
+
+.highlight::before {
+  content: '';
+  position: absolute;
+  left: -2px; bottom: 0;
+  width: 0; height: 40%;
+  background: rgba(255, 230, 0, 0.5);
+  z-index: -1;
+  transition: width 0.4s ease;
+}
+
+.highlight:hover::before {
+  width: calc(100% + 4px);
+}`
+    }
+  },
+  {
+    id: 'counter', trigger: 'auto', sub: 'text-other',
+    title: 'カウントアップ',
+    tags: ['テキスト', 'アニメーション', 'JS'],
+    prompt: '数字が0からターゲットの値までカウントアップするアニメーションを作って',
+    html: '<span class="fx-counter" id="counter-el">0</span>',
+    code: {
+      html: '<span class="counter">0</span>',
+      css: `.counter {
+  font-size: 2.5rem;
+  font-weight: 800;
+  font-family: monospace;
+  font-variant-numeric: tabular-nums;
+}`,
+      js: `function countUp(el, target, duration = 2000) {
+  let start = 0;
+  const step = (timestamp) => {
+    if (!start) start = timestamp;
+    const progress = Math.min((timestamp - start) / duration, 1);
+    el.textContent = Math.floor(progress * target).toLocaleString();
+    if (progress < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+countUp(document.querySelector('.counter'), 12345);`
+    },
+    init: (el) => {
+      const span = el.querySelector('#counter-el');
+      if (!span) return;
+      function run() {
+        let start = null;
+        const target = 12345;
+        const duration = 2000;
+        const step = (ts) => {
+          if (!start) start = ts;
+          const p = Math.min((ts - start) / duration, 1);
+          span.textContent = Math.floor(p * target).toLocaleString();
+          if (p < 1) requestAnimationFrame(step);
+          else setTimeout(run, 1500);
+        };
+        requestAnimationFrame(step);
+      }
+      run();
+    }
+  },
+  {
+    id: 'clip-reveal', trigger: 'auto', sub: 'text-other',
+    title: 'クリップパス文字出現',
+    tags: ['テキスト', 'アニメーション'],
+    prompt: 'テキストがclip-pathで左から右にスッと現れて、右に消えていくリビールアニメーションを作って',
+    html: '<span class="fx-clip-reveal">REVEAL</span>',
+    code: {
+      html: '<span class="clip-reveal">REVEAL</span>',
+      css: `.clip-reveal {
+  font-size: 2rem;
+  font-weight: 700;
+  animation: clip-reveal 3s ease-in-out infinite;
+}
+
+@keyframes clip-reveal {
+  0% { clip-path: inset(0 100% 0 0); }
+  30%, 70% { clip-path: inset(0 0 0 0); }
+  100% { clip-path: inset(0 0 0 100%); }
+}`
+    }
+  },
+
+  // --- 枠系 ---
+  {
+    id: 'wave-divider', trigger: 'auto', sub: 'other',
+    title: 'ウェーブ区切り線',
+    tags: ['装飾', 'アニメーション'],
+    prompt: 'セクション間の区切りとして使えるSVGの波形ディバイダーを作って。波がゆらゆら動くようにして',
+    html: '<div class="fx-wave-divider"><svg viewBox="0 0 320 40" preserveAspectRatio="none"><path class="wave-path" fill="var(--accent)" opacity="0.3" d="M0,20 Q80,0 160,20 T320,20 L320,40 L0,40 Z"><animate attributeName="d" dur="3s" repeatCount="indefinite" values="M0,20 Q80,0 160,20 T320,20 L320,40 L0,40 Z;M0,20 Q80,40 160,20 T320,20 L320,40 L0,40 Z;M0,20 Q80,0 160,20 T320,20 L320,40 L0,40 Z"/></path></svg></div>',
+    code: {
+      html: `<div class="wave-divider">
+  <svg viewBox="0 0 320 40" preserveAspectRatio="none">
+    <path fill="#0071e3" opacity="0.3"
+      d="M0,20 Q80,0 160,20 T320,20 L320,40 L0,40 Z">
+      <animate attributeName="d" dur="3s"
+        repeatCount="indefinite"
+        values="M0,20 Q80,0 160,20 T320,20 L320,40 L0,40 Z;
+                M0,20 Q80,40 160,20 T320,20 L320,40 L0,40 Z;
+                M0,20 Q80,0 160,20 T320,20 L320,40 L0,40 Z"/>
+    </path>
+  </svg>
+</div>`,
+      css: `.wave-divider { width: 100%; }
+.wave-divider svg {
+  display: block;
+  width: 100%;
+  height: 40px;
+}`
+    }
+  },
+  {
+    id: 'focus-ring', trigger: 'auto', sub: 'border',
+    title: 'フォーカスリングパルス',
+    tags: ['枠', 'アニメーション', 'UI部品'],
+    prompt: 'ボタンの周りにフォーカスリングが脈打つように広がって消えるパルスアニメーションを作って',
+    html: '<button class="fx-focus-ring">Focus Ring</button>',
+    code: {
+      html: '<button class="focus-ring-btn">Focus Ring</button>',
+      css: `.focus-ring-btn {
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: #fff;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  animation: focus-pulse 2s ease-in-out infinite;
+}
+
+@keyframes focus-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0,113,227,0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(0,113,227,0); }
+}`
+    }
+  },
+
+  // --- その他 ---
+  {
+    id: 'sparkle', trigger: 'auto', sub: 'other',
+    title: 'キラキラ',
+    tags: ['装飾', 'アニメーション'],
+    prompt: 'テキストの周りに星がキラキラ光るスパークルエフェクトを作って',
+    html: '<span class="fx-sparkle" id="sparkle-el">Sparkle</span>',
+    code: {
+      html: '<span class="sparkle">Sparkle</span>',
+      css: `.sparkle {
+  position: relative;
+  font-size: 2rem;
+  font-weight: 700;
+  display: inline-block;
+}
+
+.sparkle .star {
+  position: absolute;
+  font-size: 0.8rem;
+  animation: sparkle 1.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0) rotate(0); }
+  50% { opacity: 1; transform: scale(1) rotate(180deg); }
+}`,
+      js: `const el = document.querySelector('.sparkle');
+const positions = [
+  { top: '-10px', left: '-5px', delay: '0s' },
+  { top: '-5px', right: '-8px', delay: '0.5s' },
+  { bottom: '-8px', left: '30%', delay: '1s' },
+  { top: '50%', right: '-10px', delay: '0.3s' },
+];
+positions.forEach(p => {
+  const star = document.createElement('span');
+  star.className = 'star';
+  star.textContent = '✦';
+  Object.assign(star.style, p);
+  star.style.animationDelay = p.delay;
+  el.appendChild(star);
+});`
+    },
+    init: (el) => {
+      const span = el.querySelector('#sparkle-el');
+      if (!span) return;
+      const positions = [
+        { top: '-10px', left: '-5px', animationDelay: '0s' },
+        { top: '-5px', right: '-8px', animationDelay: '0.5s' },
+        { bottom: '-8px', left: '30%', animationDelay: '1s' },
+        { top: '50%', right: '-10px', animationDelay: '0.3s' },
+      ];
+      positions.forEach(p => {
+        const star = document.createElement('span');
+        star.className = 'star';
+        star.textContent = '✦';
+        Object.assign(star.style, p);
+        span.appendChild(star);
+      });
+    }
+  },
+  {
+    id: 'breathing-circle', trigger: 'auto', sub: 'other',
+    title: '呼吸する円',
+    tags: ['図形', 'アニメーション'],
+    prompt: '丸い円がゆっくり拡大縮小しながら透明度も変わる呼吸アニメーションを作って。瞑想アプリのような感じで',
+    html: '<div class="fx-breathing-circle"></div>',
+    code: {
+      html: '<div class="breathing-circle"></div>',
+      css: `.breathing-circle {
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  animation: breathing-circle 3s ease-in-out infinite;
+}
+
+@keyframes breathing-circle {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; }
+}`
+    }
+  },
+
+  // --- ホバー ---
+  {
+    id: 'tilt-card', trigger: 'hover',
+    title: '3Dチルトカード',
+    tags: ['カード', 'ホバー', '3D'],
+    prompt: 'カードにホバーすると3Dで少し傾いて奥行きが出るチルトエフェクトを作って',
+    html: '<div class="fx-tilt-card">3D Tilt Card</div>',
+    code: {
+      html: '<div class="tilt-card">3D Tilt Card</div>',
+      css: `.tilt-card {
+  padding: 24px 32px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-weight: 600;
+  text-align: center;
+  transition: transform 0.3s ease;
+  transform-style: preserve-3d;
+  perspective: 500px;
+  cursor: pointer;
+}
+
+.tilt-card:hover {
+  transform: rotateY(-8deg) rotateX(5deg);
+  box-shadow: 8px 8px 20px rgba(0,0,0,0.12);
+}`
+    }
+  },
+  {
+    id: 'hover-rotate', trigger: 'hover',
+    title: 'ホバーで1回転',
+    tags: ['アイコン', 'ホバー', 'アニメーション'],
+    prompt: '要素にホバーすると360度くるっと1回転するエフェクトを作って。アイコンや画像に使えるように',
+    html: '<span class="fx-hover-rotate">🔄</span>',
+    code: {
+      html: '<span class="hover-rotate">🔄</span>',
+      css: `.hover-rotate {
+  display: inline-block;
+  font-size: 2rem;
+  transition: transform 0.5s ease;
+  cursor: pointer;
+}
+
+.hover-rotate:hover {
+  transform: rotate(360deg);
+}`
+    }
+  },
+  {
+    id: 'blur-bg', trigger: 'hover',
+    title: 'ホバーで背景ぼかし',
+    tags: ['カード', 'ホバー', 'エフェクト'],
+    prompt: 'カードにホバーすると背景がぼやけてテキストが際立つブラー背景エフェクトを作って',
+    html: '<div class="fx-blur-bg-wrap"><div class="bg-img"></div><div class="bg-text">ホバーしてね</div></div>',
+    code: {
+      html: `<div class="blur-bg-wrap">
+  <div class="bg-img"></div>
+  <div class="bg-text">ホバーしてね</div>
+</div>`,
+      css: `.blur-bg-wrap {
+  position: relative;
+  padding: 24px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.bg-img {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+  transition: filter 0.4s;
+}
+
+.blur-bg-wrap:hover .bg-img {
+  filter: blur(6px);
+}
+
+.bg-text {
+  position: relative;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  z-index: 1;
+}`
+    }
+  },
+  {
+    id: 'jelly-btn', trigger: 'hover',
+    title: 'ゼリーボタン',
+    tags: ['ボタン', 'ホバー', 'アニメーション'],
+    prompt: 'ボタンにホバーするとゼリーのようにぷるぷる弾むアニメーションを作って',
+    html: '<button class="fx-jelly-btn">Jelly!</button>',
+    code: {
+      html: '<button class="jelly-btn">Jelly!</button>',
+      css: `.jelly-btn {
+  padding: 12px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: #0071e3;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.jelly-btn:hover {
+  animation: jelly 0.5s ease;
+}
+
+@keyframes jelly {
+  0% { transform: scale(1, 1); }
+  30% { transform: scale(1.2, 0.8); }
+  40% { transform: scale(0.8, 1.2); }
+  50% { transform: scale(1.1, 0.9); }
+  65% { transform: scale(0.95, 1.05); }
+  75% { transform: scale(1.05, 0.95); }
+  100% { transform: scale(1, 1); }
+}`
+    }
+  },
+
+  // --- クリック ---
+  {
+    id: 'hamburger', trigger: 'click',
+    title: 'ハンバーガーメニュー',
+    tags: ['UI部品', 'インタラクション', 'アニメーション'],
+    prompt: 'ハンバーガーメニューアイコンをクリックすると×印に変形するアニメーションを作って。3本線から×にスムーズに変わるように',
+    html: '<button class="fx-hamburger" id="hamburger-btn"><span></span><span></span><span></span></button>',
+    code: {
+      html: `<button class="hamburger">
+  <span></span><span></span><span></span>
+</button>`,
+      css: `.hamburger {
+  width: 36px; height: 28px;
+  position: relative;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.hamburger span {
+  display: block;
+  position: absolute;
+  height: 3px; width: 100%;
+  background: #333;
+  border-radius: 2px;
+  left: 0;
+  transition: all 0.3s ease;
+}
+
+.hamburger span:nth-child(1) { top: 0; }
+.hamburger span:nth-child(2) { top: 12px; }
+.hamburger span:nth-child(3) { top: 24px; }
+
+.hamburger.is-open span:nth-child(1) {
+  top: 12px; transform: rotate(45deg);
+}
+.hamburger.is-open span:nth-child(2) { opacity: 0; }
+.hamburger.is-open span:nth-child(3) {
+  top: 12px; transform: rotate(-45deg);
+}`,
+      js: `document.querySelector('.hamburger')
+  .addEventListener('click', function() {
+    this.classList.toggle('is-open');
+  });`
+    },
+    init: (el) => {
+      const btn = el.querySelector('#hamburger-btn');
+      if (btn) btn.addEventListener('click', () => btn.classList.toggle('is-open'));
+    }
+  },
+  {
+    id: 'accordion', trigger: 'click',
+    title: 'アコーディオン',
+    tags: ['UI部品', 'インタラクション', 'アニメーション'],
+    prompt: 'クリックで中身がスムーズに開閉するアコーディオンUIを作って。矢印も回転するようにして',
+    html: '<div class="fx-accordion" id="accordion-el"><div class="fx-accordion-header">開閉する<span class="arrow">▼</span></div><div class="fx-accordion-body"><div class="fx-accordion-body-inner">アコーディオンの中身です。クリックで開閉します。</div></div></div>',
+    code: {
+      html: `<div class="accordion">
+  <div class="accordion-header">
+    開閉する <span class="arrow">▼</span>
+  </div>
+  <div class="accordion-body">
+    <div class="accordion-body-inner">
+      アコーディオンの中身です。
+    </div>
+  </div>
+</div>`,
+      css: `.accordion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.accordion-header .arrow {
+  transition: transform 0.3s;
+}
+
+.accordion.is-open .accordion-header {
+  border-radius: 8px 8px 0 0;
+}
+
+.accordion.is-open .arrow {
+  transform: rotate(180deg);
+}
+
+.accordion-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  border: 1px solid #ddd;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+}
+
+.accordion.is-open .accordion-body {
+  max-height: 200px;
+}
+
+.accordion-body-inner {
+  padding: 12px 16px;
+  font-size: 0.85rem;
+}`,
+      js: `document.querySelector('.accordion-header')
+  .addEventListener('click', function() {
+    this.closest('.accordion').classList.toggle('is-open');
+  });`
+    },
+    init: (el) => {
+      const header = el.querySelector('.fx-accordion-header');
+      if (header) header.addEventListener('click', () => {
+        header.closest('.fx-accordion').classList.toggle('is-open');
+      });
+    }
+  },
+
+  // ===== 追加エフェクト v3 =====
+
+  // --- 文字が動く ---
+  {
+    id: 'letter-space', trigger: 'auto', sub: 'move',
+    title: '文字間が広がる',
+    tags: ['テキスト', 'アニメーション'],
+    prompt: 'テキストの文字間隔がゆっくり広がって戻るアニメーションを作って',
+    html: '<span class="fx-letter-space">SPACING</span>',
+    code: {
+      html: '<span class="letter-space">SPACING</span>',
+      css: `.letter-space {
+  font-size: 1.8rem;
+  font-weight: 700;
+  animation: letter-space 3s ease-in-out infinite;
+}
+
+@keyframes letter-space {
+  0%, 100% { letter-spacing: 0; }
+  50% { letter-spacing: 12px; }
+}`
+    }
+  },
+
+  // --- 枠系 ---
+  {
+    id: 'neon-btn', trigger: 'auto', sub: 'border',
+    title: 'ネオンボタン（緑）',
+    tags: ['ボタン', '光', 'アニメーション'],
+    prompt: '暗い背景に緑色のネオンサイン風に光るボタンを作って。枠線とテキストが光って',
+    html: '<div class="fx-neon-btn-area"><button class="fx-neon-btn">NEON</button></div>',
+    code: {
+      html: '<button class="neon-btn">NEON</button>',
+      css: `.neon-btn {
+  padding: 12px 32px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f0;
+  background: transparent;
+  border: 2px solid #0f0;
+  border-radius: 8px;
+  cursor: pointer;
+  text-shadow: 0 0 5px #0f0;
+  animation: neon-btn-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes neon-btn-glow {
+  0% { box-shadow: 0 0 5px #0f0, inset 0 0 5px rgba(0,255,0,0.1); }
+  100% { box-shadow: 0 0 15px #0f0, 0 0 30px #0f0, inset 0 0 10px rgba(0,255,0,0.15); }
+}`
+    }
+  },
+
+  // --- その他 ---
+  {
+    id: 'typing-dots', trigger: 'auto', sub: 'other',
+    title: '入力中ドット（チャット）',
+    tags: ['UI部品', 'アニメーション'],
+    prompt: 'チャットアプリの「入力中...」を表す3つのドットが順番に跳ねるインジケーターを作って',
+    html: '<div class="fx-typing-dots"><span></span><span></span><span></span></div>',
+    code: {
+      html: `<div class="typing-dots">
+  <span></span><span></span><span></span>
+</div>`,
+      css: `.typing-dots {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 18px;
+  background: #e8e8ed;
+  border-radius: 18px;
+  width: fit-content;
+}
+
+.typing-dots span {
+  width: 8px; height: 8px;
+  background: #999;
+  border-radius: 50%;
+  animation: typing-dot 1.4s ease-in-out infinite;
+}
+
+.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typing-dot {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-6px); opacity: 1; }
+}`
+    }
+  },
+  {
+    id: 'bubbles', trigger: 'auto', sub: 'other',
+    title: '浮かぶバブル',
+    tags: ['装飾', 'アニメーション'],
+    prompt: '下から上にふわふわと泡が浮かんでいくバブルアニメーションを作って。背景装飾として使えるように',
+    html: '<div class="fx-bubbles" id="bubbles-el"></div>',
+    code: {
+      html: '<div class="bubbles"></div>',
+      css: `.bubbles {
+  position: relative;
+  width: 100%; height: 80px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: linear-gradient(to top, #e0f7fa, #fff);
+}
+
+.bubbles .bubble {
+  position: absolute;
+  bottom: -20px;
+  border-radius: 50%;
+  background: rgba(0,150,255,0.15);
+  animation: bubble-rise linear infinite;
+}
+
+@keyframes bubble-rise {
+  0% { transform: translateY(0) scale(1); opacity: 0.6; }
+  100% { transform: translateY(-100px) scale(0.5); opacity: 0; }
+}`,
+      js: `const container = document.querySelector('.bubbles');
+for (let i = 0; i < 8; i++) {
+  const b = document.createElement('div');
+  b.className = 'bubble';
+  const size = 8 + Math.random() * 16;
+  b.style.width = b.style.height = size + 'px';
+  b.style.left = Math.random() * 100 + '%';
+  b.style.animationDuration = 2 + Math.random() * 3 + 's';
+  b.style.animationDelay = Math.random() * 3 + 's';
+  container.appendChild(b);
+}`
+    },
+    init: (el) => {
+      const container = el.querySelector('#bubbles-el');
+      if (!container) return;
+      for (let i = 0; i < 8; i++) {
+        const b = document.createElement('div');
+        b.className = 'bubble';
+        const size = 8 + Math.random() * 16;
+        b.style.width = b.style.height = size + 'px';
+        b.style.left = Math.random() * 100 + '%';
+        b.style.animationDuration = 2 + Math.random() * 3 + 's';
+        b.style.animationDelay = Math.random() * 3 + 's';
+        container.appendChild(b);
+      }
+    }
+  },
+  {
+    id: 'circular-progress', trigger: 'auto', sub: 'other',
+    title: '円形プログレス',
+    tags: ['ローダー', 'アニメーション'],
+    prompt: 'SVGで円形のプログレスバーを作って。円が描かれていくアニメーション付きで',
+    html: '<div class="fx-circular-progress"><svg width="64" height="64"><circle class="track" cx="32" cy="32" r="26"/><circle class="fill-circle" cx="32" cy="32" r="26"/></svg><span class="progress-text">80%</span></div>',
+    code: {
+      html: `<div class="circular-progress">
+  <svg width="64" height="64">
+    <circle class="track" cx="32" cy="32" r="26"/>
+    <circle class="fill" cx="32" cy="32" r="26"/>
+  </svg>
+  <span class="progress-text">80%</span>
+</div>`,
+      css: `.circular-progress {
+  position: relative;
+  width: 64px; height: 64px;
+}
+
+.circular-progress svg { transform: rotate(-90deg); }
+
+.circular-progress circle {
+  fill: none;
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+
+.track { stroke: #ddd; }
+
+.fill {
+  stroke: #0071e3;
+  stroke-dasharray: 164;
+  stroke-dashoffset: 164;
+  animation: circular-fill 2s ease-in-out infinite;
+}
+
+.progress-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+@keyframes circular-fill {
+  0% { stroke-dashoffset: 164; }
+  50% { stroke-dashoffset: 33; }
+  100% { stroke-dashoffset: 164; }
+}`
+    }
+  },
+  {
+    id: 'scroll-progress', trigger: 'auto', sub: 'other',
+    title: 'スクロールプログレスバー',
+    tags: ['UI部品', 'アニメーション'],
+    prompt: 'ページ上部にスクロール量に応じて伸びるプログレスバーを作って。スクロールの進捗が分かるように',
+    html: '<div class="fx-scroll-progress-demo"><div class="fx-scroll-progress-bar"></div><div class="fx-scroll-progress-label">↑ ページ上部に固定して使う</div></div>',
+    code: {
+      html: '<div class="scroll-progress-bar" id="scrollBar"></div>',
+      css: `.scroll-progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 4px;
+  background: #0071e3;
+  z-index: 9999;
+  transition: width 0.1s;
+}`,
+      js: `window.addEventListener('scroll', () => {
+  const bar = document.getElementById('scrollBar');
+  const max = document.body.scrollHeight - window.innerHeight;
+  const pct = (window.scrollY / max) * 100;
+  bar.style.width = pct + '%';
+});`
+    }
+  },
+
+  // --- ホバー ---
+  {
+    id: 'reveal', trigger: 'hover',
+    title: 'ホバーで中身が現れる',
+    tags: ['カード', 'ホバー', 'アニメーション'],
+    prompt: 'カードにホバーすると表面がフェードアウトして下に隠れていた中身が現れるリビールエフェクトを作って',
+    html: '<div class="fx-reveal-wrap"><div class="fx-reveal-bg">隠れてたよ！</div><div class="fx-reveal-overlay">ホバーしてね</div></div>',
+    code: {
+      html: `<div class="reveal-wrap">
+  <div class="reveal-bg">隠れてたよ！</div>
+  <div class="reveal-overlay">ホバーしてね</div>
+</div>`,
+      css: `.reveal-wrap {
+  position: relative;
+  width: 200px; height: 80px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.reveal-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+}
+
+.reveal-overlay {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  transition: opacity 0.4s, transform 0.4s;
+}
+
+.reveal-wrap:hover .reveal-overlay {
+  opacity: 0;
+  transform: scale(1.1);
+}`
+    }
+  },
+  {
+    id: 'slide-text-btn', trigger: 'hover',
+    title: 'ホバーで文字が入れ替わるボタン',
+    tags: ['ボタン', 'ホバー', 'アニメーション'],
+    prompt: 'ボタンにホバーすると文字が下からスライドして別の文字に入れ替わるエフェクトを作って',
+    html: '<button class="fx-slide-text-btn"><span class="text-default">送信</span><span class="text-hover">Submit →</span></button>',
+    code: {
+      html: `<button class="slide-text-btn">
+  <span class="text-default">送信</span>
+  <span class="text-hover">Submit →</span>
+</button>`,
+      css: `.slide-text-btn {
+  position: relative;
+  padding: 12px 40px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: #0071e3;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.text-default, .text-hover {
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.text-hover {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(100%);
+}
+
+.slide-text-btn:hover .text-default {
+  transform: translateY(-100%);
+}
+
+.slide-text-btn:hover .text-hover {
+  transform: translateY(0);
+}`
+    }
+  },
+
+  // --- クリック ---
+  {
+    id: 'card-flip', trigger: 'click',
+    title: 'カードフリップ（表裏）',
+    tags: ['カード', 'インタラクション', '3D'],
+    prompt: 'クリックでカードが裏返って裏面が見えるフリップアニメーションを作って。3Dで回転するように',
+    html: '<div class="fx-card-flip" id="card-flip-el"><div class="fx-card-flip-inner"><div class="fx-card-flip-front">表面 (Click!)</div><div class="fx-card-flip-back">裏面！</div></div></div>',
+    code: {
+      html: `<div class="card-flip">
+  <div class="card-flip-inner">
+    <div class="card-flip-front">表面</div>
+    <div class="card-flip-back">裏面</div>
+  </div>
+</div>`,
+      css: `.card-flip {
+  width: 180px; height: 100px;
+  perspective: 600px;
+  cursor: pointer;
+}
+
+.card-flip-inner {
+  position: relative;
+  width: 100%; height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.card-flip.is-flipped .card-flip-inner {
+  transform: rotateY(180deg);
+}
+
+.card-flip-front, .card-flip-back {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-weight: 600;
+  backface-visibility: hidden;
+}
+
+.card-flip-front { background: #0071e3; color: #fff; }
+.card-flip-back {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  transform: rotateY(180deg);
+}`,
+      js: `document.querySelector('.card-flip')
+  .addEventListener('click', function() {
+    this.classList.toggle('is-flipped');
+  });`
+    },
+    init: (el) => {
+      const card = el.querySelector('#card-flip-el');
+      if (card) card.addEventListener('click', () => card.classList.toggle('is-flipped'));
+    }
+  },
+  {
+    id: 'checkbox', trigger: 'click',
+    title: 'カスタムチェックボックス',
+    tags: ['UI部品', 'インタラクション'],
+    prompt: 'CSSだけでチェックマークがアニメーション付きで表示されるカスタムチェックボックスを作って',
+    html: '<label style="cursor:pointer;display:flex;align-items:center;gap:10px;font-weight:600"><input type="checkbox" class="fx-checkbox"> チェックしてね</label>',
+    code: {
+      html: '<input type="checkbox" class="custom-checkbox">',
+      css: `.custom-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 24px; height: 24px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.custom-checkbox:checked {
+  background: #0071e3;
+  border-color: #0071e3;
+}
+
+.custom-checkbox::after {
+  content: '';
+  position: absolute;
+  left: 7px; top: 3px;
+  width: 6px; height: 11px;
+  border: solid #fff;
+  border-width: 0 2.5px 2.5px 0;
+  transform: rotate(45deg) scale(0);
+  transition: transform 0.2s ease;
+}
+
+.custom-checkbox:checked::after {
+  transform: rotate(45deg) scale(1);
 }`
     }
   },
