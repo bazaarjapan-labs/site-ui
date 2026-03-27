@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI Effects Catalog</title>
+  <link rel="stylesheet" href="style.css?v=2">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-top">
+      <h1 class="site-title">UI Effects Catalog</h1>
+      <p class="site-desc">AIに指示を出してUIエフェクトを作るためのリファレンス集</p>
+    </div>
+    <div class="header-controls">
+      <div class="search-box">
+        <input type="text" id="search" placeholder="エフェクトを検索..." autocomplete="off">
+      </div>
+      <div class="filter-tags" id="filterTags"></div>
+      <div class="header-actions">
+        <button class="btn-icon" id="favFilterBtn" title="お気に入りだけ表示">
+          <span class="star-icon">☆</span>
+        </button>
+        <button class="btn-icon" id="themeToggle" title="ダークモード切替">
+          <span class="theme-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="gallery" id="gallery"></main>
+
+  <footer class="site-footer">
+    <p>UI Effects Catalog — サイト制作の参考に</p>
+  </footer>
+
+  <script src="effects.js?v=2"></script>
+  <script src="app.js?v=2"></script>
+</body>
+</html>
